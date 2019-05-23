@@ -5,6 +5,18 @@ class UsersController < ApplicationController
    }
   end
 
+  def create
+    new_user = User.new(user_params)
+    if new_user.save
+      session[:user_id] = new_user.id
+      session[:oauth_details] = nil
+    else
+      # WE HAVE PORBLEM
+      binding.pry
+    end
+    redirect_to '/'
+  end
+
   private
 
   def user_params
