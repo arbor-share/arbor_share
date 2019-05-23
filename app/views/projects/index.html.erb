@@ -1,12 +1,12 @@
 <h1> All Projects </h1>
 
-
 <div class='projects'>
   <% @projects.each do |project| %>
   <section class="project-<%= project.id %>">
     <ul id="info-<%= project.id %>">
       <li><%= project.title %></li>
       <li><%= project.date %></li>
+      <li><%=image_tag(project.image)%></li>
       <li><%= project.image %></li>
       <li><%= project.location_id %></li>
       <li><%= project.description%></li>
