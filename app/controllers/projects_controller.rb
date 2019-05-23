@@ -4,5 +4,10 @@ class ProjectsController < ApplicationController
     @projects = Project.where(active: true)
   end
 
+  def show
+
+  end
+
 
 end
+
