@@ -63,8 +63,7 @@ RSpec.describe 'as a logged in user' do
           within "#info-#{@project1.id}" do
             expect(page).to have_content(@project1.title)
             expect(page).to have_content(@project1.date)
-            # testing for brief description?, image?
-            # expect(page).to have_content(project_1.description)
+            expect(page).to have_content(@project1.description)
             # expect(page).to have_content(@project1.image)
             expect(page).to have_content(@project1.location.line_1)
             expect(page).to have_content(@project1.location.line_2)
