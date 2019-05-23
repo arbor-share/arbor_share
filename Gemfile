@@ -25,6 +25,8 @@ gem 'figaro'
 gem 'faraday'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'faker'
+gem 'factory_bot_rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
