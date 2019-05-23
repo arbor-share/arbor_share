@@ -1,14 +1,19 @@
-<%= form_for new_user, method: :create do |f| %>
-  <%= tag.img src: new_user.avatar_image, class: "avatar_preview" %>
+<main id="user-enrollment">
+  <h1>Tell us about yourself!</h1>
+  <%= form_for new_user, method: :create do |f| %>
+    <%= tag.img src: new_user.avatar_image, class: "avatar_preview" %>
 
-  <%= f.label :full_name %>
-  <%= f.text_field :full_name %>
+    <%= f.label :full_name %>
+    <%= f.text_field :full_name %><br>
 
-  <%= f.label :email %>
-  <%= f.text_field :email %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
 
-  <%= f.label :about %>
-  <%= f.text_area :about %>
+    <section class="about">
+      <%= f.label :about %><br>
+      <%= f.text_area :about %>
+    </section>
 
-  <%= f.submit 'Sign Up' %>
-<% end %>
+    <%= f.submit 'Sign Up' %>
+  <% end %>
+</main>

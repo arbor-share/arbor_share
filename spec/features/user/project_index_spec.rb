@@ -13,21 +13,21 @@ RSpec.describe 'as a logged in user' do
                               active: true)
 
       @project1 = Project.create(title: 'Project 1',
-                                  date: '2019-05-30', 
+                                  date: '2019-05-30',
                                   description: 'Description of Project 1',
                                   image: 'http://clipart-library.com/image_gallery/104074.png',
                                   organizer: @organizer,
                                   active: true)
 
       @project2 = Project.create(title: 'Project 2',
-                                  date: '2019-06-30', 
+                                  date: '2019-06-30',
                                   description: 'Description of Project 2',
                                   image: 'http://clipart-library.com/image_gallery/104074.png',
                                   organizer: @organizer,
                                   active: true)
 
       @project3 = Project.create(title: 'Project 3',
-                            date: 'June 3', 
+                            date: 'June 3',
                             description: 'Description of Project 3',
                             image: 'http://clipart-library.com/image_gallery/104074.png',
                             organizer: @organizer,
@@ -55,14 +55,14 @@ RSpec.describe 'as a logged in user' do
     it 'can see a tile for each active project' do
       # save_and_open_page
       # the projects are ordered by default by date?
-      expect(page).to have_content("All Projects")
+      expect(page).to have_content("Current Projects")
       expect(page).to_not have_content(@project3.title)
 
       within '.projects' do
         within ".project-#{@project1.id}" do
+          expect(page).to have_content(@project1.date.strftime('%A, %b %-d, %Y'))
           within "#info-#{@project1.id}" do
             expect(page).to have_content(@project1.title)
-            expect(page).to have_content(@project1.date)
             expect(page).to have_content(@project1.description)
             # expect(page).to have_content(@project1.image)
             expect(page).to have_content(@project1.location.line_1)

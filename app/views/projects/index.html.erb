@@ -1,25 +1,31 @@
-<h1> All Projects </h1>
-<section class='sorting'>
-<%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
-<%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
-<%= link_to 'Coming Soon', root_path %>
-</section>
-
-<div class='projects'>
-  <% @projects.each do |project| %> 
-  <section class="project-<%= project.id %> project-card">
-    <ul id="info-<%= project.id %>">
-    <p><%= project.title %></p>
-    <img class"thumbnail" src= <%= "#{project.image}" %> alt="", width="200" height="200">
-      <li><%= project.date %></li>
-      <li><%= project.location.line_1 %></li>
-      <li><%= project.location.line_2 %></li>
-      <li><%= project.location.city %>, <%= project.location.state %></li>
-      <li><%= project.location.zip %></li>
-      <li><%= project.description%></li>
-    </ul>
-    <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
-    </section>
+<main>
+  <h1>Current Projects</h1>
+  <section class='sorting'>
+  <%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
+  <%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
+  <%= link_to 'Coming Soon', root_path %>
   </section>
-  <% end %>
-</div>
+  
+  <div class='projects'>
+    <% @projects.each do |project| %>
+    <section class="project-<%= project.id %> project-card">
+      <h3><%= project.title %></h3>
+      <time datetime="<%= project.date %>"><%= project.date.strftime('%A, %b %-d, %Y') %></time>
+      <img class"thumbnail" src="<%= project.image %>" alt="", width="200" height="200">
+      <div id="info-<%= project.id %>">
+        <p>
+          <%= project.location.line_1 %><br>
+          <%= project.location.line_2 %><br>
+          <%= project.location.city %>,
+          <%= project.location.state %>
+          <%= project.location.zip %>
+        </p>
+        <h4>Project Description</h4>
+        <span><%= project.description%></span>
+      </div>
+      <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
+      </section>
+    </section>
+    <% end %>
+  </div>
+</main>
