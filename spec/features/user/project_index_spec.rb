@@ -12,48 +12,42 @@ RSpec.describe 'as a logged in user' do
                               role: 1,
                               active: true)
 
-      @user = User.create(full_name: 'Reg User',
-                              email: 'user@email.com',
-                              about: 'I am a friendly user',
-                              avatar_image: 'link to image',
-                              google_token: 'google token',
-                              google_id: 1,
-                              role: 0,
-                              active: true,)
+      @project1 = Project.create(title: 'Project 1',
+                                  date: '2019-05-30', 
+                                  description: 'Description of Project 1',
+                                  image: 'http://clipart-library.com/image_gallery/104074.png',
+                                  organizer: @organizer,
+                                  active: true)
 
-      @address = Address.create(owner_id: @organizer.id,
+      @project2 = Project.create(title: 'Project 2',
+                                  date: '2019-06-30', 
+                                  description: 'Description of Project 2',
+                                  image: 'http://clipart-library.com/image_gallery/104074.png',
+                                  organizer: @organizer,
+                                  active: true)
+
+      @project3 = Project.create(title: 'Project 3',
+                            date: 'June 3', 
+                            description: 'Description of Project 3',
+                            image: 'http://clipart-library.com/image_gallery/104074.png',
+                            organizer: @organizer,
+                            active: false)
+
+      @address1 = Address.create(owner: @project1,
                               line_1: "first address line",
                               line_2: "second address line",
                               city: "city town",
                               state: 0,
                               zip: '12345',
-                              default: true,
-                              )
+                              default: true)
 
-                              # require 'pry'; binding.pry
-      @project1 = Project.create(title: 'Project 1',
-                                  date: 'correct format?', 
-                                  description: 'Description of Project 1',
-                                  image: 'http://clipart-library.com/image_gallery/104074.png',
-                                  location_id: @address.id,
-                                  organizer_id: @organizer.id,
-                                  active: true)
-
-      @project2 = Project.create(title: 'Project 2',
-                                  date: 'June 2', 
-                                  description: 'Description of Project 2',
-                                  image: 'http://clipart-library.com/image_gallery/104074.png',
-                                  location_id: @address.id,
-                                  organizer_id: @organizer.id,
-                                  active: true)
-
-      @project3 = Project.create(title: 'Project 3',
-                                  date: 'June 3', 
-                                  description: 'Description of Project 3',
-                                  image: 'http://clipart-library.com/image_gallery/104074.png',
-                                  location_id: @address.id,
-                                  organizer_id: @organizer.id,
-                                  active: false)
+      @address2 = Address.create(owner: @project2,
+                              line_1: "first address line",
+                              line_2: "second address line",
+                              city: "city town",
+                              state: 0,
+                              zip: '12345',
+                              default: true)
 
       visit root_path
     end
@@ -69,10 +63,14 @@ RSpec.describe 'as a logged in user' do
           within "#info-#{@project1.id}" do
             expect(page).to have_content(@project1.title)
             expect(page).to have_content(@project1.date)
-            #testing for brief description?
+            # testing for brief description?, image?
             # expect(page).to have_content(project_1.description)
-            expect(page).to have_content(@project1.image)
-            expect(page).to have_content(@project1.location_id)
+            # expect(page).to have_content(@project1.image)
+            expect(page).to have_content(@project1.address.line_1)
+            expect(page).to have_content(@project1.address.line_2)
+            expect(page).to have_content(@project1.address.city)
+            expect(page).to have_content(@project1.address.state)
+            expect(page).to have_content(@project1.address.zip)
             expect(page).to_not have_content(@project2.title)
           end
           within "#join_button-#{@project1.id}" do
