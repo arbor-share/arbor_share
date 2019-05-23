@@ -5,9 +5,9 @@
     <% @projects.each do |project| %>
     <section class="project-<%= project.id %> project-card">
       <p><%= project.title %></p>
+      <time datetime="<%= project.date %>"><%= project.date.strftime('%A, %b %-d, %Y') %></time>
       <img class"thumbnail" src="<%= project.image %>" alt="", width="200" height="200">
       <ul id="info-<%= project.id %>">
-        <li><%= project.date %></li>
         <li><%= project.location.line_1 %></li>
         <li><%= project.location.line_2 %></li>
         <li><%= project.location.city %>, <%= project.location.state %></li>
