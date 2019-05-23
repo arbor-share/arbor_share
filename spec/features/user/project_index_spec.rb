@@ -53,7 +53,7 @@ RSpec.describe 'as a logged in user' do
     end
 
     it 'can see a tile for each active project' do
-      save_and_open_page
+      # save_and_open_page
       # the projects are ordered by default by date?
       expect(page).to have_content("All Projects")
       expect(page).to_not have_content(@project3.title)
