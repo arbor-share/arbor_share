@@ -12,13 +12,13 @@ RSpec.describe 'as a logged in user' do
                               role: 1,
                               active: true)
 
-      @user = User.create(full_name: 'Project Organizer',
-                              email: 'organizer@email.com',
-                              about: 'A little about myself, very little',
+      @user = User.create(full_name: 'Reg User',
+                              email: 'user@email.com',
+                              about: 'I am a friendly user',
                               avatar_image: 'link to image',
                               google_token: 'google token',
                               google_id: 1,
-                              role: 1,
+                              role: 0,
                               active: true,)
 
       @address = Address.create(owner_id: @organizer.id,
@@ -46,8 +46,6 @@ RSpec.describe 'as a logged in user' do
                                   location_id: @address.id,
                                   organizer_id: @organizer.id,
                                   active: true)
-
-                                  require 'pry'; binding.pry
 
       visit root_path
     end
