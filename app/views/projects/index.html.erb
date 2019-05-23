@@ -1,16 +1,16 @@
 <h1> All Projects </h1>
 
 <div class='projects'>
-  <% @projects.each do |project| %>
-  <section class="project-<%= project.id %>">
-    <li><%= project.title %></li>
+  <% @projects.each do |project| %> 
+  <section class="project-<%= project.id %> project-card">
     <img class"thumbnail" src= <%= "#{project.image}" %> alt="", width="200" height="200">
+    <li><%= project.title %></li>
     <ul id="info-<%= project.id %>">
       <li><%= project.date %></li>
-      <li><%= project.address.line_1 %></li>
-      <li><%= project.address.line_2 %></li>
-      <li><%= project.address.city %>, <%= project.address.state %></li>
-      <li><%= project.address.zip %></li>
+      <li><%= project.location.line_1 %></li>
+      <li><%= project.location.line_2 %></li>
+      <li><%= project.location.city %>, <%= project.location.state %></li>
+      <li><%= project.location.zip %></li>
       <li><%= project.description%></li>
     </ul>
     <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
