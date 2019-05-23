@@ -1,0 +1,14 @@
+<%= form_for new_user, method: :create do |f| %>
+  <%= tag.img src: new_user.avatar_image, class: "avatar_preview" %>
+
+  <%= f.label :full_name %>
+  <%= f.text_field :full_name %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%= f.label :about %>
+  <%= f.text_area :about %>
+
+  <%= f.submit 'Sign Up' %>
+<% end %>

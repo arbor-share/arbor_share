@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :about
       t.string :avatar_image
       t.string :google_token
-      t.integer :google_id
+      t.numeric :google_id
       t.integer :role
       t.boolean :active
 

@@ -53,13 +53,11 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.string "title"
     t.date "date"
     t.bigint "organizer_id"
-    t.bigint "location_id"
     t.string "description"
     t.string "image"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["location_id"], name: "index_projects_on_location_id"
     t.index ["organizer_id"], name: "index_projects_on_organizer_id"
   end
 
@@ -76,7 +74,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.string "about"
     t.string "avatar_image"
     t.string "google_token"
-    t.integer "google_id"
+    t.decimal "google_id"
     t.integer "role"
     t.boolean "active"
     t.datetime "created_at", null: false
@@ -104,7 +102,6 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
   add_foreign_key "carpool_passengers", "users", column: "passenger_id"
   add_foreign_key "carpools", "projects"
   add_foreign_key "carpools", "users", column: "driver_id"
-  add_foreign_key "projects", "addresses", column: "location_id"
   add_foreign_key "projects", "users", column: "organizer_id"
   add_foreign_key "user_blocks", "users", column: "blocked_user_id"
   add_foreign_key "user_blocks", "users", column: "blocking_user_id"
