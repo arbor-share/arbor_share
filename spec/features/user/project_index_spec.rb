@@ -51,20 +51,21 @@ RSpec.describe 'as a logged in user' do
     end
 
     it 'can see a tile for each project' do
+      save_and_open_page
       # the projects are ordered by default by date?
       expect(page).to have_content("All Projects")
       within '.projects' do
-        within "#project-#{@project1_id}" do
-          within "#project-#{@project1_id}" do
-            expect(page).to have_content(@project_1.title)
-            expect(page).to have_content(@project_1.date)
+        within ".project-#{@project1.id}" do
+          within "#info-#{@project1.id}" do
+            expect(page).to have_content(@project1.title)
+            expect(page).to have_content(@project1.date)
             #testing for brief description?
             # expect(page).to have_content(project_1.description)
-            expect(page).to have_content(@project_1.image)
-            expect(page).to have_content(@project_1.location)
-            expect(page).to_not have_content(@project_2.title)
+            expect(page).to have_content(@project1.image)
+            expect(page).to have_content(@project1.location_id)
+            expect(page).to_not have_content(@project2.title)
           end
-          within "#join_button-#{@project1_id}" do
+          within "#join_button-#{@project1.id}" do
             expect(page).to have_button('Join Carpool')
           end
         end
@@ -72,10 +73,3 @@ RSpec.describe 'as a logged in user' do
     end
   end
 end
-
-# As a logged in user,
-# when I visit the root path,
-# I see tiles for each project,
-# Each project tile has a title, image, date, location, brief description.
-# Under each tile there is a button "Join the Project",
-# the projects are ordered by default by date
