@@ -62,8 +62,8 @@ RSpec.describe 'as a logged in user' do
 
     it 'sees the projects in order by date' do
       within '.projects' do
-          expect(@project3.title).to appear_before(@project1.title)
-          expect(@project2.title).to appear_before(@project1.title)
+        expect(@project3.title).to appear_before(@project1.title)
+        expect(@project2.title).to appear_before(@project1.title)
       end
     end
   end
