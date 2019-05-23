@@ -4,7 +4,6 @@ class CreateProjects < ActiveRecord::Migration[5.2]
       t.string :title
       t.date :date
       t.references :organizer, foreign_key: { to_table: :users }
-      t.references :location, foreign_key: { to_table: :addresses }
       t.string :description
       t.string :image
       t.boolean :active
