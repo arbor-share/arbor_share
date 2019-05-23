@@ -21,9 +21,15 @@ nav {
 .logo a {
   color: #FFFFFF;
   text-decoration: none;
-  padding-left: 60px;
   line-height: 55px;
   font-size: 40px;
+}
+
+.logo a img {
+  position: relative;
+  top: 3px;
+  width: 40px;
+  height: 40px;
 }
 
 .session_control {
