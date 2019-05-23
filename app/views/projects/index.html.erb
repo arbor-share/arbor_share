@@ -3,12 +3,14 @@
 <div class='projects'>
   <% @projects.each do |project| %>
   <section class="project-<%= project.id %>">
+    <li><%= project.title %></li>
+    <img class"thumbnail" src= <%= "#{project.image}" %> alt="", width="200" height="200">
     <ul id="info-<%= project.id %>">
-      <li><%= project.title %></li>
       <li><%= project.date %></li>
-      <li><%=image_tag(project.image)%></li>
-      <li><%= project.image %></li>
-      <li><%= project.location_id %></li>
+      <li><%= project.address.line_1 %></li>
+      <li><%= project.address.line_2 %></li>
+      <li><%= project.address.city %>, <%= project.address.state %></li>
+      <li><%= project.address.zip %></li>
       <li><%= project.description%></li>
     </ul>
     <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
