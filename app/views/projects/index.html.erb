@@ -3,8 +3,8 @@
 <div class='projects'>
   <% @projects.each do |project| %> 
   <section class="project-<%= project.id %> project-card">
+    <p><%= project.title %></p>
     <img class"thumbnail" src= <%= "#{project.image}" %> alt="", width="200" height="200">
-    <li><%= project.title %></li>
     <ul id="info-<%= project.id %>">
       <li><%= project.date %></li>
       <li><%= project.location.line_1 %></li>
