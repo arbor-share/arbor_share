@@ -1,0 +1,21 @@
+<h3>Add a Project</h3>
+<div class="new-project-form">
+  <%= form_for [:admin, @project] do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.label :date %>
+    <%= f.text_field :date %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    Address Line 1 <input name="address[line_1]" type="text"/>
+    Address Line 2 <input name="address[line_2]" type="text"/>
+    City <input name="address[city]" type="text"/>
+    State <input name="address[state]" type="text"/>
+    Zip <input name="address[zip]" type="text"/>
+    <%= f.label :image %>
+    <%= f.text_field :image %>
+    <%= f.label :active %>
+    <%= f.check_box :active, checked: true %>
+    <%= f.submit %>
+  <% end %>
+</div>
