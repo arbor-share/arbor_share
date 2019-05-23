@@ -10,6 +10,11 @@
   </head>
 
   <body>
+    <nav>
+      <% unless current_user %>
+      <%= link_to 'Sign in with Google', '/auth/google' %>
+      <% end %>
+    </nav>
     <%= yield %>
   </body>
 </html>
