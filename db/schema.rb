@@ -29,13 +29,6 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.index ["owner_type", "owner_id"], name: "index_addresses_on_owner_type_and_owner_id"
   end
 
-  create_table "blocklist", force: :cascade do |t|
-    t.bigint "blocking_user_id"
-    t.bigint "blocked_user_id"
-    t.index ["blocked_user_id"], name: "index_blocklist_on_blocked_user_id"
-    t.index ["blocking_user_id"], name: "index_blocklist_on_blocking_user_id"
-  end
-
   create_table "carpool_passengers", force: :cascade do |t|
     t.bigint "carpool_id"
     t.bigint "passenger_id"
@@ -70,11 +63,11 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.index ["organizer_id"], name: "index_projects_on_organizer_id"
   end
 
-  create_table "user_addresses", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "address_id"
-    t.index ["address_id"], name: "index_user_addresses_on_address_id"
-    t.index ["user_id"], name: "index_user_addresses_on_user_id"
+  create_table "user_blocks", force: :cascade do |t|
+    t.bigint "blocking_user_id"
+    t.bigint "blocked_user_id"
+    t.index ["blocked_user_id"], name: "index_user_blocks_on_blocked_user_id"
+    t.index ["blocking_user_id"], name: "index_user_blocks_on_blocking_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,15 +100,13 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.index ["owner_id"], name: "index_vehicles_on_owner_id"
   end
 
-  add_foreign_key "blocklist", "users", column: "blocked_user_id"
-  add_foreign_key "blocklist", "users", column: "blocking_user_id"
   add_foreign_key "carpool_passengers", "carpools"
   add_foreign_key "carpool_passengers", "users", column: "passenger_id"
   add_foreign_key "carpools", "projects"
   add_foreign_key "carpools", "users", column: "driver_id"
   add_foreign_key "projects", "addresses", column: "location_id"
   add_foreign_key "projects", "users", column: "organizer_id"
-  add_foreign_key "user_addresses", "addresses"
-  add_foreign_key "user_addresses", "users"
+  add_foreign_key "user_blocks", "users", column: "blocked_user_id"
+  add_foreign_key "user_blocks", "users", column: "blocking_user_id"
   add_foreign_key "vehicles", "users", column: "owner_id"
 end
