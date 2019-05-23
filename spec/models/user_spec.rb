@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
                               zip: '12345',
                               default: true)
 
-      expect(project.address).to eq(address)
+      expect(project.location).to eq(address)
     end
   end
 end

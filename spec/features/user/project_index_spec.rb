@@ -66,11 +66,11 @@ RSpec.describe 'as a logged in user' do
             # testing for brief description?, image?
             # expect(page).to have_content(project_1.description)
             # expect(page).to have_content(@project1.image)
-            expect(page).to have_content(@project1.address.line_1)
-            expect(page).to have_content(@project1.address.line_2)
-            expect(page).to have_content(@project1.address.city)
-            expect(page).to have_content(@project1.address.state)
-            expect(page).to have_content(@project1.address.zip)
+            expect(page).to have_content(@project1.location.line_1)
+            expect(page).to have_content(@project1.location.line_2)
+            expect(page).to have_content(@project1.location.city)
+            expect(page).to have_content(@project1.location.state)
+            expect(page).to have_content(@project1.location.zip)
             expect(page).to_not have_content(@project2.title)
           end
           within "#join_button-#{@project1.id}" do
