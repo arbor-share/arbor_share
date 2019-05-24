@@ -26,8 +26,8 @@ describe 'As an admin' do
 
       project = Project.last
       expect(current_path).to eq(project_path(project))
-      # expect(page).to have_content("Your project was successfully created!")
-      # expect(page).to have_content(project.title)
+      expect(page).to have_content("Your project was successfully created!")
+      expect(page).to have_content(project.title)
     end
   end
 end

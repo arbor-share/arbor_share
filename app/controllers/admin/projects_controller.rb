@@ -1,4 +1,4 @@
-class Admin::ProjectsController < ApplicationController
+class Admin::ProjectsController < Admin::BaseController
 
   def new
     @project = Project.new
@@ -7,6 +7,7 @@ class Admin::ProjectsController < ApplicationController
   def create
     project = Project.create(project_params)
     Address.create(location_params.merge(owner: project))
+    flash[:success] = "Your project was successfully created!"
     redirect_to project_path(project)
   end
 
