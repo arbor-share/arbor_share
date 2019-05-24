@@ -57,10 +57,13 @@ RSpec.describe 'as a logged in user' do
                               zip: '12345',
                               default: true)
 
+        @vehicle1 = Vehicle.create 
+      @carpool1 = Carpool.create(driver: @organizer, project: @project1, vehicle: @vehicle1)
+
       visit root_path
     end
 
-    it 'sees the projects in order by date' do
+    it 'sees the projects in order of date by default' do
       within '.projects' do
         expect(@project3.title).to appear_before(@project1.title)
         expect(@project2.title).to appear_before(@project1.title)
@@ -72,6 +75,15 @@ RSpec.describe 'as a logged in user' do
       within '.projects' do
         expect(@project1.title).to appear_before(@project3.title)
         expect(@project3.title).to appear_before(@project2.title)
+      end
+    end
+
+    it 'can sort the projects by needs a driver ' do
+      click_link 'Needs Driver'
+      within '.projects' do
+        expect(page).to have_content(@project2.title)
+        expect(page).to have_content(@project3.title)
+        expect(page).to_not have_content(@project1.title)
       end
     end
   end
