@@ -38,6 +38,14 @@ nav {
   right: 0px;
 }
 
+.session_control a:not(.goog_login) {
+  color: #FFFFFF;
+  text-decoration: none;
+  line-height: 55px;
+  font-size: 30px;
+  margin-right: 16px;
+}
+
 .goog_login button {
   display: block;
   width: 191px;
