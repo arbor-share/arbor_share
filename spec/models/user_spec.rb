@@ -11,19 +11,21 @@ RSpec.describe User, type: :model do
 
     it{ should have_many(:carpools)
                .with_foreign_key('driver_id') }
-
-    it{ should define_enum_for(:role)
-               .with_values([:default, :organizer, :admin]) }
   end
 
   describe 'Validations:' do
     it{ should validate_presence_of(:email) }
+
     it{ should allow_values('test@test.com',
                             'test@test.co.uk',
                             'te-st.us_er+filter@gmail.com').for(:email) }
+
     it{ should_not allow_values('test.com',
                                 'test@test',
                                 'nothankyou',
                                 '').for(:email) }
+
+    it{ should define_enum_for(:role)
+               .with_values([:default, :organizer, :admin]) }
   end
 end
