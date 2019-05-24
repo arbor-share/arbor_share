@@ -58,7 +58,7 @@ RSpec.describe 'as a logged in user' do
                               default: true)
 
         @vehicle1 = Vehicle.create 
-      @carpool1 = Carpool.create(driver: @organizer, project: @project1, vehicle: @vehicle1)
+        @carpool1 = Carpool.create(driver: @organizer, project: @project1, vehicle: @vehicle1)
 
       visit root_path
     end
@@ -81,7 +81,7 @@ RSpec.describe 'as a logged in user' do
     it 'can sort the projects by needs a driver ' do
       click_link 'Needs Driver'
       within '.projects' do
-        expect(@project3.title).to appear_before(@project2.title)        
+        expect(@project3.title).to appear_before(@project2.title)       
         expect(page).to_not have_content(@project1.title)
       end
     end
