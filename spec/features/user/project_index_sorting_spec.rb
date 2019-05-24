@@ -81,9 +81,16 @@ RSpec.describe 'as a logged in user' do
     it 'can sort the projects by needs a driver ' do
       click_link 'Needs Driver'
       within '.projects' do
-        expect(page).to have_content(@project2.title)
-        expect(page).to have_content(@project3.title)
+        expect(@project3.title).to appear_before(@project2.title)        
         expect(page).to_not have_content(@project1.title)
+      end
+    end
+
+    it 'can sort the projects in order of date ' do
+      click_link 'Coming Soon'
+      within '.projects' do
+        expect(@project3.title).to appear_before(@project1.title)
+        expect(@project2.title).to appear_before(@project1.title)
       end
     end
   end
