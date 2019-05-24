@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.text "city"
     t.integer "state"
     t.text "zip"
-    t.boolean "default"
+    t.boolean "default", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_addresses_on_owner_type_and_owner_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.bigint "organizer_id"
     t.string "description"
     t.string "image"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organizer_id"], name: "index_projects_on_organizer_id"
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.string "avatar_image"
     t.string "google_token"
     t.decimal "google_id"
-    t.integer "role"
-    t.boolean "active"
+    t.integer "role", default: 0
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_234451) do
     t.integer "fuel_efficiency_unit"
     t.integer "passenger_limit"
     t.text "image"
-    t.boolean "default"
+    t.boolean "default", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_vehicles_on_owner_id"
