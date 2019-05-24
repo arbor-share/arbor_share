@@ -22,13 +22,13 @@ address_32 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "Los
 project_1 = Project.create!(title: "C Go Green!", date: "2019-05-30", organizer: user_2, description: "Plant things.", active: true)
 address_41 = Address.create!(owner: project_1, line_1: "At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
 
-project_2 = Project.create!(title: "B Go Blue!", date: "2019-05-30", organizer: user_2, description: "Plant things.", active: true)
+project_2 = Project.create!(title: "B Go Blue!", date: "2019-06-30", organizer: user_2, description: "Plant things.", active: true)
 address_51 = Address.create!(owner: project_2, line_1: "By the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
 
-project_3 = Project.create!(title: "A Go Red!", date: "2019-05-30", organizer: user_2, description: "Plant things.", active: true)
+project_3 = Project.create!(title: "A Go Red!", date: "2019-07-30", organizer: user_2, description: "Plant things.", active: true)
 address_61 = Address.create!(owner: project_3, line_1: "Not At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
 
-project_4 = Project.create!(title: "Go Red!", date: "2019-05-30", organizer: user_2, description: "Plant things.", active: false)
+project_4 = Project.create!(title: "Go Red!", date: "2019-08-30", organizer: user_2, description: "Plant things.", active: false)
 address_71 = Address.create!(owner: project_4, line_1: "Not At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
 
 vehicle_1 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)
