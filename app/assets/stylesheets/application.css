@@ -14,7 +14,13 @@
  *= require_self
  */
 
-.projects {
-  display: flex;
-  justify-content: space-between;
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 70px 0 0;
+  padding: 0;
+  background-color: #FFF8EF;
+}
+
+main {
+  margin: 0 20px;
 }
