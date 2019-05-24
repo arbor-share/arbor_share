@@ -1,5 +1,40 @@
+h1 {
+  text-align: center;
+}
+
+form {
+  width: 600px;
+  margin: 0 auto;
+}
+
 .avatar_preview {
   width: 80px;
   height: 80px;
   object-fit: cover;
+  float: left;
+  margin: 0 10px 10px 0;
+}
+
+form>label {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+}
+
+form label::after {
+  content: ':';
+}
+
+input {
+  height: 20px;
+  width: 250px;
+}
+
+section.about {
+  clear: both;
+}
+
+textarea {
+  width: 600px;
+  height: 200px;
 }
