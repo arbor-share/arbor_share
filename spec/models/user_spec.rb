@@ -11,6 +11,9 @@ RSpec.describe User, type: :model do
 
     it{ should have_many(:carpools)
                .with_foreign_key('driver_id') }
+
+    it{ should have_many(:rides)
+               .through(:carpool_passengers) }
   end
 
   describe 'Validations:' do
