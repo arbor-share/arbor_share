@@ -3,6 +3,8 @@
     <a href="/"><img src="/img/logo.png">ArborShare</a>
   </section>
   <section class="session_control">
+
+    <%= link_to 'Profile', '/profile'%>
   <% if current_user %>
     <%= link_to 'Logout', '/logout' %>
   <% else %>
