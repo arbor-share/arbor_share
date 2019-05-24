@@ -53,19 +53,19 @@ nav {
   border: none;
   background-color: transparent;
   background-size: cover;
-  background-image: url('../img/google/2x/normal.png');
+  background-image: url('/img/google/2x/normal.png');
   margin-right: 6px;
   margin-top: 6px;
 }
 
 .goog_login button:focus {
-  background-image: url('../img/google/2x/focus.png');
+  background-image: url('/img/google/2x/focus.png');
 }
 
 .goog_login button:active {
-  background-image: url('../img/google/2x/pressed.png');
+  background-image: url('/img/google/2x/pressed.png');
 }
 
 .goog_login button:disabled {
-  background-image: url('../img/google/2x/disabled.png');
+  background-image: url('/img/google/2x/disabled.png');
 }
