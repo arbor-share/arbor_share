@@ -18,7 +18,7 @@ describe 'As an admin' do
       fill_in 'address[line_1]', with: '1331 17th St'
       fill_in 'address[line_2]', with: 'LL100'
       fill_in 'address[city]', with: 'Denver'
-      fill_in 'address[state]', with: 'CO'
+      select 'CO', from: 'address[state]'
       fill_in 'address[zip]', with: '80202'
       fill_in 'Image', with: 'https://www.historycolorado.org/sites/default/files/media/images/2018/pikes-peak-1273566_1920.jpg'
 

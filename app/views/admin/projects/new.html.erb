@@ -18,7 +18,7 @@
       <%= tag.input type: :text, name: 'address[city]', id: :address_city %>
       <%= tag.label 'State', for: 'address_state' %>
       <%= tag.select name: 'address[state]', id: :address_state do %>
-        <%= options_for_select(Address.states) %>
+        <%= options_for_select(Address.states.map{|opt|opt.first}) %>
       <% end %>
       <%= tag.label 'Zip', for: 'address_zip' %>
       <%= tag.input type: :text, name: 'address[zip]', id: :address_zip %><br>
