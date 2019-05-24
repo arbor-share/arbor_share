@@ -68,6 +68,7 @@ RSpec.describe 'as a logged in user' do
     end
 
     it 'can sort the projects by title a-z ' do
+      click_link 'Alphabetical'
       within '.projects' do
         expect(@project1.title).to appear_before(@project3.title)
         expect(@project3.title).to appear_before(@project2.title)
