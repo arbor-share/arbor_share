@@ -1,21 +1,30 @@
-<h3>Add a Project</h3>
-<div class="new-project-form">
-  <%= form_for [:admin, @project] do |f| %>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <%= f.label :date %>
-    <%= f.text_field :date %>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-    Address Line 1 <input name="address[line_1]" type="text"/>
-    Address Line 2 <input name="address[line_2]" type="text"/>
-    City <input name="address[city]" type="text"/>
-    State <input name="address[state]" type="text"/>
-    Zip <input name="address[zip]" type="text"/>
-    <%= f.label :image %>
-    <%= f.text_field :image %>
-    <%= f.label :active %>
-    <%= f.check_box :active, checked: true %>
-    <%= f.submit %>
-  <% end %>
-</div>
+<main>
+  <h3>Add a Project</h3>
+  <div class="new-project-form">
+    <%= form_for [:admin, @project] do |f| %>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+      <%= f.label :date %>
+      <%= f.text_field :date %><br>
+      <%= f.label :image %>
+      <%= f.text_field :image %><br>
+      <%= f.label :description %><br>
+      <%= f.text_area :description %><br><br>
+      <%= tag.label 'Address Line 1', for: 'address_line_1' %>
+      <%= tag.input type: :text, name: 'address[line_1]', id: :address_line_1 %><br>
+      <%= tag.label 'Address Line 2', for: 'address_line_2' %>
+      <%= tag.input type: :text, name: 'address[line_2]', id: :address_line_2 %><br>
+      <%= tag.label 'City', for: 'address_city' %>
+      <%= tag.input type: :text, name: 'address[city]', id: :address_city %>
+      <%= tag.label 'State', for: 'address_state' %>
+      <%= tag.select name: 'address[state]', id: :address_state do %>
+        <%= options_for_select(Address.states) %>
+      <% end %>
+      <%= tag.label 'Zip', for: 'address_zip' %>
+      <%= tag.input type: :text, name: 'address[zip]', id: :address_zip %><br>
+      <%= f.label :active %>
+      <%= f.check_box :active, checked: true %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</main>
