@@ -13,6 +13,27 @@ SimpleCov.configure do
   minimum_coverage_by_file 90
 end
 
+begin # hide folders from SimpleCov if we're not using them
+  default_lines = {
+    'mailers' => 4,
+    'channels' => 4,
+    'helpers' => 2,
+    'jobs' => 2
+  }
+
+  %w[mailers helpers jobs].each do |type|
+    files = Dir["./app/#{type}/**/*.rb"]
+    if files.count == 1 && File.read(files.first).each_line.count == default_lines[type]
+      SimpleCov.add_filter "app/#{type}"
+    end
+  end
+
+  files = Dir['./app/channels/**/*.rb']
+  if files.count == 2 && files.all?{|f| File.read(f).each_line.count == default_lines['channels']}
+    SimpleCov.add_filter 'app/channels'
+  end
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
