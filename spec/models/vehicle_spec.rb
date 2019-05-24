@@ -10,9 +10,12 @@ RSpec.describe Vehicle, type: :model do
     it{ should validate_presence_of(:model) }
     it{ should validate_presence_of(:color) }
     it{ should validate_presence_of(:year) }
+    it{ should validate_numericality_of(:year) }
     it{ should validate_presence_of(:passenger_limit) }
+    it{ should validate_numericality_of(:passenger_limit) }
 
     it{ should validate_presence_of(:fuel_efficiency) }
+    it{ should validate_numericality_of(:fuel_efficiency) }
     it{ should validate_presence_of(:fuel_type) }
     it{ should validate_presence_of(:fuel_efficiency_unit) }
 
