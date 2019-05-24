@@ -8,7 +8,11 @@ class Admin::ProjectsController < Admin::BaseController
     project = Project.create(project_params)
     Address.create(location_params.merge(owner: project))
     flash[:success] = "Your project was successfully created!"
-    redirect_to project_path(project)
+    redirect_to admin_project_path(project)
+  end
+
+  def show
+    @project = Project.find(params[:id])
   end
 
   private

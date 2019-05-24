@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'As an admin' do
-  describe 'when I visit my dashboard/project index page' do
+  describe 'when I visit the admin dashboard' do
     describe 'I see a simplified data-driven list of all my projects' do
       it 'when I click on a project I am directed to the project show page' do
         admin = User.new(full_name: "Vincent",
