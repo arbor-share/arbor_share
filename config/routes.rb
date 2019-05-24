@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   resources :users, only: [:new, :create]
+  get '/profile', to: 'users#show', as: 'profile'
 
 
   namespace :admin do
