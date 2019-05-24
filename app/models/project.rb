@@ -4,4 +4,9 @@ class Project < ApplicationRecord
   has_many :carpools
 
   validates_presence_of %i[title date description image]
+  validate :date_must_be_current, on: :create
+
+  def date_must_be_current
+    errors.add(:date, "cannot be in the past") if date && date < Date.today
+  end
 end
