@@ -4,16 +4,20 @@
   <div class='projects'>
     <% @projects.each do |project| %>
     <section class="project-<%= project.id %> project-card">
-      <p><%= project.title %></p>
+      <h3><%= project.title %></h3>
       <time datetime="<%= project.date %>"><%= project.date.strftime('%A, %b %-d, %Y') %></time>
       <img class"thumbnail" src="<%= project.image %>" alt="", width="200" height="200">
-      <ul id="info-<%= project.id %>">
-        <li><%= project.location.line_1 %></li>
-        <li><%= project.location.line_2 %></li>
-        <li><%= project.location.city %>, <%= project.location.state %></li>
-        <li><%= project.location.zip %></li>
-        <li><%= project.description%></li>
-      </ul>
+      <div id="info-<%= project.id %>">
+        <p>
+          <%= project.location.line_1 %><br>
+          <%= project.location.line_2 %><br>
+          <%= project.location.city %>,
+          <%= project.location.state %>
+          <%= project.location.zip %>
+        </p>
+        <h4>Project Description</h4>
+        <span><%= project.description%></span>
+      </div>
       <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
       </section>
     </section>
