@@ -9,9 +9,11 @@ RSpec.describe User, type: :model do
     it{ should have_many(:blocked_users)
                .through(:user_blocks) }
 
+    # carpools are Carpools where the User is a driver
     it{ should have_many(:carpools)
                .with_foreign_key('driver_id') }
 
+    # rides are Carpools where the User is a passenger
     it{ should have_many(:rides)
                .through(:carpool_passengers) }
   end

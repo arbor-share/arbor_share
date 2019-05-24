@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Project, type: :model do
   describe 'Relationships:' do
+    # organizer is a User
     it{ should belong_to(:organizer) }
+    # location is an Address
     it{ should have_one(:location) }
     it{ should have_many(:carpools) }
   end

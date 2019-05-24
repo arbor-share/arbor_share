@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Vehicle, type: :model do
   describe 'Relationships:' do
+    # owner is a User
     it{ should belong_to(:owner) }
   end
 
