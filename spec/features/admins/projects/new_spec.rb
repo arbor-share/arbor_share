@@ -1,14 +1,13 @@
 require 'rails_helper'
 
 describe 'As an admin' do
-  describe 'when I visit / I see link to add a project' do
+  describe 'when I visit /admin/dashboard I see link to add a project' do
     it 'when I click it I can create a new project' do
       admin = User.new(full_name: "Vincent", email: "vincent@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :admin, active: true)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-      # visit '/'
-      # click_link 'Add Project'
-      visit new_admin_project_path
+      visit admin_dashboard_path
+      click_link 'Add Project'
 
       expect(current_path).to eq(new_admin_project_path)
 
@@ -25,9 +24,10 @@ describe 'As an admin' do
       click_button 'Create Project'
 
       project = Project.last
-      expect(current_path).to eq(project_path(project))
-      # expect(page).to have_content("Your project was successfully created!")
-      # expect(page).to have_content(project.title)
+
+      expect(current_path).to eq(admin_project_path(project))
+      expect(page).to have_content("Your project was successfully created!")
+      expect(page).to have_content(project.title)
     end
   end
 end
