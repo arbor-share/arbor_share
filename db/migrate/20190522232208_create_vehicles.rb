@@ -11,7 +11,7 @@ class CreateVehicles < ActiveRecord::Migration[5.2]
       t.integer :fuel_efficiency_unit
       t.integer :passenger_limit
       t.text :image
-      t.boolean :default
+      t.boolean :default, default: false
 
       t.timestamps
     end
