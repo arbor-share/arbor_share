@@ -1,4 +1,5 @@
 <h2><%= @project.title %></h2>
+<img class"thumbnail" src="<%= @project.image %>" alt="", width="200" height="200"> <br />
 <time datetime="<%= @project.date %>"><%= @project.date.strftime('%A, %b %-d, %Y') %></time>
 <div id="info-<%= @project.id %>">
   <p>
