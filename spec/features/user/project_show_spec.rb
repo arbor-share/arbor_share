@@ -115,6 +115,7 @@ describe "When I visit a project's show page" do
       user_1 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
       vehicle_1 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2, default: true)
       carpool = Carpool.create!(driver: user_1, project: @project1, vehicle: vehicle_1)
+      Address.create!(owner: @user, line_1: "123 Anywhere St", city: "Denver", state: "CO", zip: "80206", default: true)
 
       visit project_path(@project1)
 
@@ -138,10 +139,65 @@ describe "When I visit a project's show page" do
       end
     end
 
-    it 'will let a user create their own carpool'
+    it 'will let a user create their own carpool' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      vehicle_1 = Vehicle.create!(owner: @user, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2, default: true)
+      Address.create!(owner: @user, line_1: "123 Anywhere St", city: "Denver", state: "CO", zip: "80206", default: true)
 
-    it 'will not let a visitor join a carpool without logging in first'
+      visit project_path(@project1)
 
-    it 'will not let a visitor be a driver without loggin in first'
+      expect(page).to_not have_css('.carpools')
+
+      click_button 'Become a Driver'
+
+      expect(current_path).to eq(project_path(@project1))
+      expect(page).to have_content("You are now a driver for #{@project1.title}!")
+      within '.drivers' do
+        expect(page).to have_content("Driver: #{@user.full_name}")
+        expect(page).to_not have_button('Catch a Ride')
+      end
+    end
+
+    it 'will not let a user become a driver if they do not have an address' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      vehicle_1 = Vehicle.create!(owner: @user, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2, default: true)
+
+      visit project_path(@project1)
+
+      click_button 'Become a Driver'
+
+      expect(current_path).to eq(project_path(@project1))
+      expect(page).to_not have_css('.carpools')
+      expect(page).to have_content("You were unable to become a driver!")
+    end
+
+    it 'will not let a user become a passenger if they do not have an address' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      user_1 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
+      vehicle_1 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2, default: true)
+      carpool = Carpool.create!(driver: user_1, project: @project1, vehicle: vehicle_1)
+
+      visit project_path(@project1)
+
+      within ".carpool-#{carpool.id}" do
+        click_button 'Catch a Ride'
+      end
+
+      expect(current_path).to eq(project_path(@project1))
+      expect(page).to have_content("You were not able to join this carpool")
+      within '.drivers' do
+        expect(page).to_not have_content(@user.full_name)
+      end
+    end
+
+    it 'will not let a visitor join a carpool or become a driver without logging in first' do
+      visit project_path(@project1)
+
+      expect(page).to_not have_css('.drivers')
+      expect(page).to_not have_button('Catch a Ride')
+      expect(page).to_not have_button('Become a Driver')
+      expect(page).to have_content('Sign in to become a Driver or join a Carpool!')
+      expect(page).to have_link('Sign in')
+    end
   end
 end
