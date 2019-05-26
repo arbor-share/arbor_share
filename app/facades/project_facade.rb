@@ -12,4 +12,8 @@ class ProjectFacade
   def no_rides?
     @carpools.count.zero?
   end
+
+  def check_carpool(carpool, user)
+    carpool.full? || carpool.driver == user || carpool.passengers.include?(user)
+  end
 end
