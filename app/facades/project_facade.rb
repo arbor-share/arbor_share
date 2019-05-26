@@ -8,4 +8,8 @@ class ProjectFacade
     @location = project.location
     @carpools = project.carpools
   end
+
+  def no_rides?
+    @carpools.count.zero?
+  end
 end
