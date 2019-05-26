@@ -57,8 +57,14 @@ RSpec.describe Project, type: :model do
                               zip: '12345',
                               default: true)
 
+      @vehicle1 = Vehicle.create 
+      @carpool1 = Carpool.create(driver: @organizer, project: @project1, vehicle: @vehicle1)
+
       alphabetically = Project.sorted("a-z")
-      expect(aplebetically).to eq([@project1, @project3, @project2])
+      needs_driver = Project.sorted("needs_driver")
+
+      expect(alphabetically).to eq([@project1, @project3, @project2])
+      expect(needs_driver).to eq([@project3, @project2])
       # Project.sorted("date")
       # Project.sorted("no_driver")
       # require 'pry'; binding.pry
