@@ -4,11 +4,16 @@ class Project < ApplicationRecord
   has_many :carpools
 
 
-  def self.sorted(sort)
-    if sort == "a-z"
+  def self.sorted(sort = nil)
+    if sort == 'a-z'
       Project.where(active: true).order(:title)
+    elsif sort == 'needs_driver'
+      projects = Project.where(active: true).order(:date)
+      projects.find_all do |project|
+        project.carpools.empty?
+      end
     else
+      Project.where(active: true).order(:date)
     end
   end
-
 end
