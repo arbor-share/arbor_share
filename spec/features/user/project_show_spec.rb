@@ -109,5 +109,39 @@ describe "When I visit a project's show page" do
         expect(page).to_not have_button('Catch a Ride')
       end
     end
+
+    it 'lets a logged in user join a carpool' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      user_1 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
+      vehicle_1 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2, default: true)
+      carpool = Carpool.create!(driver: user_1, project: @project1, vehicle: vehicle_1)
+
+      visit project_path(@project1)
+
+      within ".carpool-#{carpool.id}" do
+        expect(page).to have_button('Catch a Ride')
+        expect(page).to have_content("Available Seats: 2 of 2")
+        within '.passengers' do
+          expect(page).to_not have_content('Person mchelper')
+        end
+        click_button 'Catch a Ride'
+      end
+
+      expect(page).to have_content("You have joined #{user_1.full_name}'s carpool!")
+
+      within ".carpool-#{carpool.id}" do
+        expect(page).to_not have_button('Catch a Ride')
+        expect(page).to have_content('Available Seats: 1 of 2')
+        within '.passengers' do
+          expect(page).to have_content('Person mchelper')
+        end
+      end
+    end
+
+    it 'will let a user create their own carpool'
+
+    it 'will not let a visitor join a carpool without logging in first'
+
+    it 'will not let a visitor be a driver without loggin in first'
   end
 end
