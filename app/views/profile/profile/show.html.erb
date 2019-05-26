@@ -14,6 +14,9 @@
       <span class="line_1"><%= address.city %></span>,
       <span class="line_1"><%= address.state %></span>
       <span class="line_1"><%= address.zip %></span>
+      <% unless address.default? %>
+      <%= button_to 'Make Default', user_address_path(user, address), method: :patch %>
+      <% end %>
     </article>
   <% end %>
   </section>
