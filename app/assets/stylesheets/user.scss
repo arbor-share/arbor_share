@@ -40,3 +40,55 @@
     height: 200px;
   }
 }
+
+#user-info {
+  width: 600px;
+  margin: 0 auto;
+  min-height: 200px;
+
+  .avatar {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    float: left;
+    margin: 0 15px 15px 0;
+  }
+
+  .about {
+    margin-top: 15px;
+  }
+}
+
+#owned-things {
+  display: flex;
+  justify-content: space-evenly;
+
+  h3 {
+    margin-top: 0px;
+  }
+}
+
+#addresses, #vehicles {
+  flex-basis: 45%;
+  min-width: 350px;
+  background-color: #D7EDC2;
+  box-shadow: 0 0 3px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.address, .vehicle {
+  position: relative;
+}
+
+.address:not(:last-of-type), .vehicle:not(:last-of-type) {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: #808080 1px solid
+}
+
+.address form, .vehicle form {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
