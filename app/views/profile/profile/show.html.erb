@@ -8,12 +8,12 @@
 
   <section id="addresses">
   <% user.addresses.each do |address| %>
-    <article class="address<%= " default" if address.default? %>">
-      <span class="line_1"><%= address.line_1 %></span><br>
-      <span class="line_1"><%= address.line_2 %></span><br>
-      <span class="line_1"><%= address.city %></span>,
-      <span class="line_1"><%= address.state %></span>
-      <span class="line_1"><%= address.zip %></span>
+    <article class="address <%= " default" if address.default? %>">
+      <span class="line-1"><%= address.line_1 %></span><br>
+      <span class="line-2"><%= address.line_2 %></span><br>
+      <span class="city"><%= address.city %></span>,
+      <span class="state"><%= address.state %></span>
+      <span class="zip"><%= address.zip %></span>
       <% unless address.default? %>
       <%= button_to 'Make Default', user_address_path(user, address), method: :patch %>
       <% end %>
