@@ -60,6 +60,7 @@ RSpec.describe 'as a logged in user' do
                                  image: "url/to/image",
                                default: false)
 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       visit profile_path
     end
 
