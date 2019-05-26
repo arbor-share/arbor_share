@@ -15,6 +15,9 @@
       <%= link_to 'Sign in with Google', '/auth/google' %>
       <% end %>
     </nav>
+    <% flash.each do |key, value| %>
+      <%= content_tag :div, value, class: "flash #{key}" %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
