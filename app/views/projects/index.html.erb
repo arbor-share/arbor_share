@@ -1,7 +1,7 @@
 <h1> All Projects </h1>
 
 <div class='projects'>
-  <% @projects.each do |project| %> 
+  <% @projects.each do |project| %>
   <section class="project-<%= project.id %> project-card">
     <p><%= project.title %></p>
     <img class"thumbnail" src= <%= "#{project.image}" %> alt="", width="200" height="200">
@@ -13,7 +13,7 @@
       <li><%= project.location.zip %></li>
       <li><%= project.description%></li>
     </ul>
-    <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
+    <section id="join_button-<%= project.id %>"><%= button_to 'Join the Project', project_path(project), method: :get %>
     </section>
   </section>
   <% end %>
