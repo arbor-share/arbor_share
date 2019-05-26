@@ -115,7 +115,7 @@ RSpec.describe 'as a logged in user' do
           expect(page).to_not have_content(@vehicle2.make)
         end
 
-        within('.vehicle:first-of-type') do
+        within('.vehicle:last-of-type') do
           click_on 'Make Default'
         end
       end
