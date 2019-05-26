@@ -19,18 +19,20 @@ describe 'As an admin' do
      click_link "Edit Project"
 
      expect(current_path).to eq(edit_admin_project_path(project_1))
-     expect(page).to have_selector("input[value='#{project_1.title}']")
-     expect(page).to have_selector("input[value='#{project_1.description}']")
-     expect(page).to have_selector("input[value='#{project_1.date}']")
-     expect(page).to have_selector("input[value='#{project_1.location.line_1}']")
-     expect(page).to have_selector("input[value='#{project_1.location.line_2}']")
-     expect(page).to have_selector("input[value='#{project_1.location.city}']")
-     expect(page).to have_selector("input[value='#{project_1.location.zip}']")
-     expect(page).to have_selector("input[value='#{project_1.image}']")
+     expect(page.find_field('Title').value).to eq(project_1.title)
+     expect(page.find_field('Description').value).to eq(project_1.description)
+     expect(page.find_field('Date').value).to eq('2019-05-30')
+
+     expect(page.find_field('Address Line 1').value).to eq(project_1.location.line_1)
+     expect(page.find_field('Address Line 2').value).to eq(project_1.location.line_2)
+     expect(page.find_field('City').value).to eq(project_1.location.city)
+     expect(page.find_field('Zip').value).to eq(project_1.location.zip)
+     expect(page.find_field('Image').value).to eq(project_1.image)
      expect(page).to have_checked_field('Active')
 
-     fill_in :title, with: "New Project Title"
+     fill_in 'Title', with: "New Project Title"
      fill_in 'address[city]', with: "Fountain"
+
      page.uncheck('Active')
 
      click_button("Update Project")
@@ -39,7 +41,6 @@ describe 'As an admin' do
      expect(page).to have_content("Your project was updated successfully!")
      expect(project_1.title).to eq("New Project Title")
      expect(project_1.location.city).to eq("Fountain")
-     # active inactive on adminproject index?
   end
 
 end

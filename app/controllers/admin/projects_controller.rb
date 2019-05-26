@@ -19,6 +19,14 @@ class Admin::ProjectsController < Admin::BaseController
     @projects = Project.all
   end
 
+  def edit
+    # binding.pry
+    @project = Project.find(params[:id])
+    @address = Address.where(owner_id: @project)
+    # binding.pry
+
+  end
+
   private
 
   def project_params
