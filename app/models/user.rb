@@ -6,4 +6,12 @@ class User < ApplicationRecord
   has_many :carpools, foreign_key: 'driver_id'
 
   enum role: %i[default organizer admin]
+
+  def default_vehicle
+    self.vehicles.find_by(default: true)
+  end
+
+  def has_address?
+    self.addresses.count > 0
+  end
 end
