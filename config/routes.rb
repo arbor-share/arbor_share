@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
 
+  namespace :profile do
+    get '/', to: 'profile#show'
+  end
 
   namespace :admin do
     resources :projects, only: [:new, :create, :show]
