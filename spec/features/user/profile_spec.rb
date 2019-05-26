@@ -86,10 +86,10 @@ RSpec.describe 'as a logged in user' do
 
           expect(page).to_not have_content(@address1.line_1)
         end
-      end
 
-      all('.address').last do
-        click_on 'Make Default'
+        within('.address:last-of-type') do
+          click_button 'Make Default'
+        end
       end
 
       within '.address.default' do
@@ -114,10 +114,10 @@ RSpec.describe 'as a logged in user' do
 
           expect(page).to_not have_content(@vehicle2.make)
         end
-      end
 
-      all('.vehicle').last do
-        click_on 'Make Default'
+        within('.vehicle:last-of-type') do
+          click_on 'Make Default'
+        end
       end
 
       within '.vehicle.default' do
