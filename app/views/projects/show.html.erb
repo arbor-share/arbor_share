@@ -5,28 +5,31 @@
    <p>Project Details: <%= facade.description %></p>
    <%= link_to 'See this on google maps' %>
 </section>
-
-<section class='drivers'>
-  <%= button_to 'Become a Driver' %>
-  <% unless facade.no_rides? %>
-    <section class='carpools'>
-      <% facade.carpools.each do |carpool| %>
-        <section class='carpool-<%= carpool.id %>'>
-          <h3>Driver: <%= carpool.driver_name %></h3>
-          <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
-            <section class='passengers'>
-              <p>Passengers:</p>
-              <ul>
-              <% carpool.passengers.each do |passenger| %>
-                <li><%= link_to passenger.full_name %></li>
-              <% end %>
-              </ul>
-              <% unless carpool.full? %>
-                <%= button_to 'Catch a Ride' %>
-              <% end %>
+<% if current_user %>
+  <section class='drivers'>
+    <%= button_to 'Become a Driver', projects_create_carpool_path %>
+    <% unless facade.no_rides? %>
+      <section class='carpools'>
+        <% facade.carpools.each do |carpool| %>
+          <section class='carpool-<%= carpool.id %>'>
+            <h3>Driver: <%= carpool.driver_name %></h3>
+            <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
+              <section class='passengers'>
+                <p>Passengers:</p>
+                <ul>
+                <% carpool.passengers.each do |passenger| %>
+                  <li><%= link_to passenger.full_name %></li>
+                <% end %>
+                </ul>
+                <% unless facade.check_carpool(carpool, current_user) %>
+                  <%= button_to 'Catch a Ride', projects_carpool_update_path(carpool_id: carpool.id) %>
+                <% end %>
+            </section>
           </section>
-        </section>
+        <% end %>
+      </section>
       <% end %>
-    </section>
-    <% end %>
-</section>
+  </section>
+<% else %>
+  <h3><%= link_to 'Sign in' %> to become a Driver or join a Carpool!</h3>
+<% end %>
