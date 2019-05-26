@@ -7,8 +7,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :avatar_image
       t.string :google_token
       t.numeric :google_id
-      t.integer :role
-      t.boolean :active
+      t.integer :role, default: 0
+      t.boolean :active, default: true
 
       t.timestamps
     end

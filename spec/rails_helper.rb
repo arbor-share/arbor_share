@@ -7,7 +7,32 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start 'rails'
+SimpleCov.configure do
+  minimum_coverage 90
+  minimum_coverage_by_file 90
+end
+
+begin # hide folders from SimpleCov if we're not using them
+  default_lines = {
+    'mailers' => 4,
+    'channels' => 4,
+    'helpers' => 2,
+    'jobs' => 2
+  }
+
+  %w[mailers helpers jobs].each do |type|
+    files = Dir["./app/#{type}/**/*.rb"]
+    if files.count == 1 && File.read(files.first).each_line.count == default_lines[type]
+      SimpleCov.add_filter "app/#{type}"
+    end
+  end
+
+  files = Dir['./app/channels/**/*.rb']
+  if files.count == 2 && files.all?{|f| File.read(f).each_line.count == default_lines['channels']}
+    SimpleCov.add_filter 'app/channels'
+  end
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -60,4 +85,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end

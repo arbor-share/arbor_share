@@ -7,7 +7,7 @@ class CreateAddresses < ActiveRecord::Migration[5.2]
       t.text :city
       t.integer :state
       t.text :zip
-      t.boolean :default
+      t.boolean :default, default: false
 
       t.timestamps
     end

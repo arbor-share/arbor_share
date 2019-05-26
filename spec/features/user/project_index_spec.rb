@@ -54,14 +54,14 @@ RSpec.describe 'as a logged in user' do
 
     it 'can see a tile for each active project' do
       # the projects are ordered by default by date?
-      expect(page).to have_content("All Projects")
+      expect(page).to have_content("Current Projects")
       expect(page).to_not have_content(@project3.title)
 
       within '.projects' do
         within ".project-#{@project1.id}" do
+          expect(page).to have_content(@project1.date.strftime('%A, %b %-d, %Y'))
           within "#info-#{@project1.id}" do
             expect(page).to have_content(@project1.title)
-            expect(page).to have_content(@project1.date)
             expect(page).to have_content(@project1.description)
             # expect(page).to have_content(@project1.image)
             expect(page).to have_content(@project1.location.line_1)

@@ -5,19 +5,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link href="https://fonts.googleapis.com/css?family=News+Cycle:700|Open+Sans&display=swap&subset=latin-ext" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <nav>
-      <% unless current_user %>
-      <%= link_to 'Sign in with Google', '/auth/google' %>
-      <% end %>
-    </nav>
-    <% flash.each do |key, value| %>
-      <%= content_tag :div, value, class: "flash #{key}" %>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: name %>
     <% end %>
+
+    <%= render partial: 'shared/nav' %>
+
     <%= yield %>
   </body>
 </html>
