@@ -57,7 +57,8 @@ RSpec.describe Project, type: :model do
                               zip: '12345',
                               default: true)
 
-      # alphabetically = Project.sorted("a-z")
+      alphabetically = Project.sorted("a-z")
+      expect(aplebetically).to eq([@project1, @project3, @project2])
       # Project.sorted("date")
       # Project.sorted("no_driver")
       # require 'pry'; binding.pry
