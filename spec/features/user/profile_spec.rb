@@ -73,7 +73,7 @@ RSpec.describe 'as a logged in user' do
       end
     end
 
-    xit 'can see my address information and select my default' do
+    it 'can see my address information and select my default' do
       within '#addresses' do
         expect(page).to have_selector('.address', count: 3)
 
@@ -88,7 +88,7 @@ RSpec.describe 'as a logged in user' do
         end
       end
 
-      within last('.address') do
+      all('.address').last do
         click_on 'Make Default'
       end
 
@@ -116,7 +116,7 @@ RSpec.describe 'as a logged in user' do
         end
       end
 
-      within last('.vehicle') do
+      all('.vehicle').last do
         click_on 'Make Default'
       end
 
