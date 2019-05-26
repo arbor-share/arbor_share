@@ -39,20 +39,75 @@ describe "When I visit a project's show page" do
 
     it 'Allows me to click the link on the index to go to the show page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-#       As a logged in user on the root path,
       visit root_path
 
       within ".project-#{@project1.id}" do
-        # when I click on a project tile or "Join the Project" button,
         click_button 'Join the Project'
       end
 
-      expect(current_path).to eq(project_path(@project1))
-      expect(page).to have_content("Project: Project 1")
-      expect(page).to have_xpath("//img[@src='http://clipart-library.com/image_gallery/104074.png']")
-      expect(page).to have_content("Description: Description of Project 1")
-      expect(page).to have_link('See this on google maps')
-      expect(page).to have_button('Become a Driver')
+      within '.project-show-card' do
+        expect(current_path).to eq(project_path(@project1))
+        expect(page).to have_content("Project: Project 1")
+        expect(page).to have_xpath("//img[@src='http://clipart-library.com/image_gallery/104074.png']")
+        expect(page).to have_content("Project Details: Description of Project 1")
+        expect(page).to have_link('See this on google maps')
+      end
+
+      within '.drivers' do
+        expect(page).to have_button('Become a Driver')
+        expect(page).to_not have_button('Catch a Ride')
+      end
+    end
+
+    it 'shows listed carpools if they are present' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      user_1 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
+      user_2 = User.create!(full_name: "Erin", email: "erin@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :organizer, active: true)
+      vehicle_1 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)
+      carpool = Carpool.create!(driver: user_1, project: @project1, vehicle: vehicle_1)
+      CarpoolPassenger.create!(carpool: carpool, passenger: user_2)
+
+      visit project_path(@project1)
+
+      within '.drivers' do
+        expect(page).to have_button('Become a Driver')
+      end
+
+      within ".carpool-#{carpool.id}" do
+        expect(page).to have_content("Driver: #{user_1.full_name}")
+        expect(page).to have_content("Available Seats: 2 of 3")
+        expect(page).to have_button('Catch a Ride')
+        within '.passengers' do
+          expect(page).to have_content('Passengers:')
+          expect(page).to have_content(user_2.full_name)
+        end
+      end
+    end
+
+    it 'will not show a button to catch a ride if there are no carpools' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+      visit project_path(@project1)
+
+      expect(page).to_not have_css('.carpools')
+      expect(page).to_not have_button('Catch a Ride')
+    end
+
+    it 'will not show the catch a ride button if a carpool if full' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      user_1 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
+      user_2 = User.create!(full_name: "Erin", email: "erin@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :organizer, active: true)
+      vehicle_1 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 1, default: true)
+      carpool = Carpool.create!(driver: user_1, project: @project1, vehicle: vehicle_1)
+      CarpoolPassenger.create!(carpool: carpool, passenger: user_2)
+
+      visit project_path(@project1)
+
+      within ".carpool-#{carpool.id}" do
+        expect(page).to have_content("Driver: #{user_1.full_name}")
+        expect(page).to have_content("Available Seats: 0 of 1")
+        expect(page).to_not have_button('Catch a Ride')
+      end
     end
   end
 end
