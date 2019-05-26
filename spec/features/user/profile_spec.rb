@@ -60,7 +60,7 @@ RSpec.describe 'as a logged in user' do
                                  image: "url/to/image",
                                default: false)
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      allow_any_instance_of(ApplicationController).to receive(:session).and_return({user_id: @user.id})
       visit profile_path
     end
 
@@ -87,7 +87,7 @@ RSpec.describe 'as a logged in user' do
           expect(page).to_not have_content(@address1.line_1)
         end
 
-        within('.address:last-of-type') do
+        within('.address:first-of-type') do
           click_button 'Make Default'
         end
       end
@@ -99,7 +99,7 @@ RSpec.describe 'as a logged in user' do
       end
     end
 
-    xit 'can see my vehicle information and select my default' do
+    it 'can see my vehicle information and select my default' do
       within '#vehicles' do
         expect(page).to have_selector('.vehicle', count: 2)
 
@@ -115,7 +115,7 @@ RSpec.describe 'as a logged in user' do
           expect(page).to_not have_content(@vehicle2.make)
         end
 
-        within('.vehicle:last-of-type') do
+        within('.vehicle:first-of-type') do
           click_on 'Make Default'
         end
       end
