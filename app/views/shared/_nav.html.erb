@@ -1,4 +1,9 @@
 <nav>
+  <section class="main-links">
+  <% if current_user %>
+    <%= render partial: 'shared/user_links' %>
+  <% end %>
+  </section>
   <section class="logo">
     <a href="/"><img src="/img/logo.png">ArborShare</a>
   </section>
