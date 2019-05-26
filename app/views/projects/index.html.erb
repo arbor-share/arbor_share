@@ -1,6 +1,11 @@
 <main>
   <h1>Current Projects</h1>
-
+  <section class='sorting'>
+  <%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
+  <%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
+  <%= link_to 'Coming Soon', root_path %>
+  </section>
+  
   <div class='projects'>
     <% @projects.each do |project| %>
     <section class="project-<%= project.id %> project-card">
