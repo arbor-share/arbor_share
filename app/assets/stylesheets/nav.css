@@ -10,11 +10,6 @@ nav {
 }
 
 .logo {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
   text-align: center;
 }
 
@@ -38,12 +33,19 @@ nav {
   right: 0px;
 }
 
-.session_control a:not(#Google-login) {
+a.logout, .main-links a {
   color: #FFFFFF;
   text-decoration: none;
   line-height: 55px;
   font-size: 30px;
   margin-right: 16px;
+}
+
+.main-links {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-left: 16px;
 }
 
 #Google-login button {
