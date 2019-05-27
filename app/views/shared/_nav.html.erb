@@ -2,9 +2,14 @@
   <section class="logo">
     <a href="/"><img src="/img/logo.png">ArborShare</a>
   </section>
+  <section class="main-links">
+  <% if current_user %>
+    <%= render partial: 'shared/user_links' %>
+  <% end %>
+  </section>
   <section class="session_control">
   <% if current_user %>
-    <%= link_to 'Logout', '/logout' %>
+    <%= link_to 'Logout', '/logout', class: 'logout' %>
   <% else %>
     <%= render partial: 'shared/google_login' %>
   <% end %>
