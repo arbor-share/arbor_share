@@ -3,6 +3,15 @@ require 'rails_helper'
 RSpec.describe 'as a logged in user' do
   context 'on the project index page' do
     before :each do
+      @user = User.create(full_name: 'Regular User',
+                              email: 'user@email.com',
+                              about: 'Some stuff.',
+                              avatar_image: 'link to image',
+                              google_token: 'google token',
+                              google_id: 1,
+                              role: 0,
+                              active: true)
+
       @organizer = User.create(full_name: 'Project Organizer',
                               email: 'organizer@email.com',
                               about: 'A little about myself, very little',
@@ -10,6 +19,15 @@ RSpec.describe 'as a logged in user' do
                               google_token: 'google token',
                               google_id: 1,
                               role: 1,
+                              active: true)
+
+      @admin = User.create(full_name: 'Super Admin',
+                              email: 'admin@email.com',
+                              about: 'More stuff.',
+                              avatar_image: 'link to image',
+                              google_token: 'google token',
+                              google_id: 1,
+                              role: 2,
                               active: true)
 
       @project1 = Project.create(title: 'Project 1',
@@ -48,13 +66,27 @@ RSpec.describe 'as a logged in user' do
                               state: 0,
                               zip: '12345',
                               default: true)
+    end
 
+    it 'as an admin, it can see an Admin Dashboard link' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
       visit root_path
+
+      expect(page).to have_content("Logout")
+    end
+
+    it 'as a regular user, it does not see an Admin Dashboard link' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit root_path
+
+      expect(page).to_not have_content("Admin Dashboard")
     end
 
     it 'can see a tile for each active project' do
       # save_and_open_page
       # the projects are ordered by default by date?
+      visit root_path
+
       expect(page).to have_content("Current Projects")
       expect(page).to_not have_content(@project3.title)
 
