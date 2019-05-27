@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
-    resources :projects, only: [:new, :create, :show, :edit]
+    resources :projects, only: [:new, :create, :show, :edit, :update]
     get '/dashboard', to: 'projects#index'
   end
 

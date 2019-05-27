@@ -20,11 +20,23 @@ class Admin::ProjectsController < Admin::BaseController
   end
 
   def edit
-    # binding.pry
     @project = Project.find(params[:id])
-    @address = Address.where(owner_id: @project)
-    # binding.pry
+  end
 
+  def update
+    project = Project.find(params[:id])
+    if project.update(project_params)
+      if Address.update(location_params.merge(owner: project))
+        flash[:success] = "Your project was updated successfully!!"
+        redirect_to admin_dashboard_path
+      else
+        flash[:alert] = "Invalid entry. Please try again."
+        redirect_to edit_admin_project_path(project)
+      end
+    else
+      flash[:alert] = "Invalid entry. Please try again."
+      redirect_to edit_admin_project_path(project)
+    end
   end
 
   private
