@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :addresses, as: :owner
-  has_many :vehicles, foreign_key: 'owner_id'
+  has_many :addresses, -> { order(default: :desc, id: :desc) }, as: :owner
+  has_many :vehicles, -> { order(default: :desc, id: :desc) }, foreign_key: 'owner_id'
 
   has_many :user_blocks
   has_many :blocked_users, through: :user_blocks
