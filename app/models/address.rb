@@ -5,4 +5,9 @@ class Address < ApplicationRecord
 
   validates_presence_of %i[line_1 city state zip]
   validates :zip, format: /\A\d{5}\z/
+
+  def self.make_default(id, owner)
+    find_by(owner: owner, default: true).toggle!(:default)
+    find(id).toggle!(:default)
+  end
 end

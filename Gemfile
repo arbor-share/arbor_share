@@ -51,6 +51,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'webmock'
   gem 'vcr'
+  gem 'orderly'
 
 end
 

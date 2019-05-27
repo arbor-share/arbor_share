@@ -83,7 +83,6 @@ RSpec.describe 'as a logged in user' do
     end
 
     it 'can see a tile for each active project' do
-      # save_and_open_page
       # the projects are ordered by default by date?
       visit root_path
 
@@ -105,7 +104,7 @@ RSpec.describe 'as a logged in user' do
             expect(page).to_not have_content(@project2.title)
           end
           within "#join_button-#{@project1.id}" do
-            expect(page).to have_button('Join Carpool')
+            expect(page).to have_button('Join the Project')
           end
         end
       end

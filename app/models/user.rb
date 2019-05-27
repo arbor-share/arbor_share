@@ -14,4 +14,12 @@ class User < ApplicationRecord
   validates :email,
             presence: true,
             format: { with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i }
+  
+  def default_vehicle
+    self.vehicles.find_by(default: true)
+  end
+
+  def has_address?
+    self.addresses.count > 0
+  end
 end

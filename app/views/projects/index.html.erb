@@ -1,6 +1,11 @@
 <main>
   <h1>Current Projects</h1>
-
+  <section class='sorting'>
+  <%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
+  <%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
+  <%= link_to 'Coming Soon', root_path %>
+  </section>
+  
   <div class='projects'>
     <% @projects.each do |project| %>
     <section class="project-<%= project.id %> project-card">
@@ -18,7 +23,7 @@
         <h4>Project Description</h4>
         <span><%= project.description%></span>
       </div>
-      <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
+      <section id="join_button-<%= project.id %>"><%= button_to 'Join the Project', project_path(project), method: :get %>
       </section>
     </section>
     <% end %>

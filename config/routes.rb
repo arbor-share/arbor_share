@@ -4,13 +4,25 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create] do
+    resources :addresses, only: [:update]
+    resources :vehicles, only: [:update]
+  end
 
+  namespace :profile do
+    get '/', to: 'profile#show'
+    get '/edit', to: 'profile#edit'
+  end
 
   namespace :admin do
     resources :projects, only: [:new, :create, :show, :edit, :update, :destroy]
     get '/dashboard', to: 'projects#index'
   end
 
-  resources :projects, only: [:show]
+  resources :projects, only: [:show, :create]
+
+  namespace :projects do
+    post '/:id/carpools/:carpool_id/update', to: 'carpools#update', as: 'carpool_update'
+    post '/:id/carpools/create', to: 'carpools#create', as: 'create_carpool'
+  end
 end

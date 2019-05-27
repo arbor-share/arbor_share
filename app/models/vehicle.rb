@@ -16,4 +16,9 @@ class Vehicle < ApplicationRecord
   validates :fuel_efficiency, numericality: {
                                 greater_than: 0
                               }
+
+  def self.make_default(id, owner)
+    find_by(owner: owner, default: true).toggle!(:default)
+    find(id).toggle!(:default)
+  end
 end
