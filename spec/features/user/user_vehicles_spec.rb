@@ -13,8 +13,8 @@ feature 'User vehicles' do
                             active: true)
 
       allow_any_instance_of(ApplicationController)
-                           .to receive(:current_user)
-                           .and_return(user)
+                           .to receive(:session)
+                           .and_return({user_id: user.id})
 
       visit profile_path
       click_button 'Add a Vehicle'
@@ -23,6 +23,7 @@ feature 'User vehicles' do
       fill_in 'Model', with: 'Insight'
       fill_in 'Year', with: '2019'
       fill_in 'Color', with: 'Blue'
+      fill_in 'Passenger limit', with: '3'
       fill_in 'Fuel efficiency', with: '40'
       select 'MPG', from: 'Fuel efficiency unit'
       select 'Gasoline', from: 'Fuel type'
@@ -30,7 +31,7 @@ feature 'User vehicles' do
       click_button 'Add this vehicle'
 
       within '#vehicles' do
-        expect (page).to have_content('2019 Honda Insight')
+        expect(page).to have_content('2019 Honda Insight')
       end
     end
   end
