@@ -23,9 +23,9 @@ feature 'User vehicles' do
       fill_in 'Model', with: 'Insight'
       fill_in 'Year', with: '2019'
       fill_in 'Color', with: 'Blue'
-      fill_in 'Fuel Efficiency', with: '40'
-      select 'MPG', from: 'Fuel Efficiency Unit'
-      select 'Gasoline', from: 'Fuel Type'
+      fill_in 'Fuel efficiency', with: '40'
+      select 'MPG', from: 'Fuel efficiency unit'
+      select 'Gasoline', from: 'Fuel type'
 
       click_button 'Add this vehicle'
 
