@@ -13,3 +13,8 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+
+
+function toggleHidden(elm){
+  elm.classList.toggle('hidden')
+}
