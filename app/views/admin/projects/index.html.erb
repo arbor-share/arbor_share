@@ -1,10 +1,10 @@
 <%= link_to 'Add Project', new_admin_project_path %>
 
-  <h1>Your Current Projects</h1>
+  <h1>All Projects</h1>
 
   <% @projects.each do |project| %>
   <section class="project-<%= project.id %>">
-    <h3><%= link_to project.title, admin_project_path(project) %></h3>
+    <h3><%= link_to project.title, admin_project_path(project) %> Active: <%= project.active %></h3>
     <time datetime="<%= project.date %>"><%= project.date.strftime('%A, %b %-d, %Y') %></time>
     <div id="info-<%= project.id %>">
       <p>

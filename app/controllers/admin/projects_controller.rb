@@ -31,7 +31,7 @@ class Admin::ProjectsController < Admin::BaseController
   def update
     project = Project.find(params[:id])
     if project.update(project_params)
-      if Address.update(location_params.merge(owner: project))
+      if project.location.update(location_params.merge(owner: project))
         flash[:success] = "Your project was updated successfully!!"
         redirect_to admin_dashboard_path
       else
