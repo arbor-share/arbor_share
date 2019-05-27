@@ -39,6 +39,13 @@ class Admin::ProjectsController < Admin::BaseController
     end
   end
 
+  def destroy
+    project = Project.find(params[:id])
+    project.destroy
+    flash[:success] = "Project successfully deleted!"
+    redirect_to admin_dashboard_path
+  end
+
   private
 
   def project_params

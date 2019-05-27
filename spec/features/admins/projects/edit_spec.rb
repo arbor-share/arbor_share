@@ -46,7 +46,6 @@ describe 'As an admin' do
   end
 
   it 'shows an error message if fields not filled out correctly' do
-    # fill_in 'Title', with: nil
     fill_in 'Date', with: '2018-01-01'
 
     click_button("Update Project")
