@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create] do
     resources :addresses, only: [:update]
-    resources :vehicles, only: [:update]
+    resources :vehicles, only: [:create, :update]
   end
 
   namespace :profile do
