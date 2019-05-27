@@ -1,0 +1,35 @@
+<section class='project-show-card'>
+   <h1>Project: <%= facade.title %></h1>
+   <img src="<%= facade.image %>" alt="Picture of <%= facade.title %> site">
+   <h2>Project Date: <%= facade.date %></h2>
+   <p>Project Details: <%= facade.description %></p>
+   <%= link_to 'See this on google maps' %>
+</section>
+<% if current_user %>
+  <section class='drivers'>
+    <%= button_to 'Become a Driver', projects_create_carpool_path %>
+    <% unless facade.no_rides? %>
+      <section class='carpools'>
+        <% facade.carpools.each do |carpool| %>
+          <section class='carpool-<%= carpool.id %>'>
+            <h3>Driver: <%= carpool.driver_name %></h3>
+            <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
+              <section class='passengers'>
+                <p>Passengers:</p>
+                <ul>
+                <% carpool.passengers.each do |passenger| %>
+                  <li><%= link_to passenger.full_name %></li>
+                <% end %>
+                </ul>
+                <% unless facade.check_carpool(carpool, current_user) %>
+                  <%= button_to 'Catch a Ride', projects_carpool_update_path(carpool_id: carpool.id) %>
+                <% end %>
+            </section>
+          </section>
+        <% end %>
+      </section>
+      <% end %>
+  </section>
+<% else %>
+  <h3><%= link_to 'Sign in' %> to become a Driver or join a Carpool!</h3>
+<% end %>

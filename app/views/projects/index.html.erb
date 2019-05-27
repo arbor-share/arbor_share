@@ -23,7 +23,7 @@
         <h4>Project Description</h4>
         <span><%= project.description%></span>
       </div>
-      <section id="join_button-<%= project.id %>"><%= button_to 'Join Carpool' %>
+      <section id="join_button-<%= project.id %>"><%= button_to 'Join the Project', project_path(project), method: :get %>
       </section>
     </section>
     <% end %>

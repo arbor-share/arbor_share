@@ -11,9 +11,11 @@ class ProjectsController < ApplicationController
   end
 
   def show
-
+    project = Project.find(params[:id])
+    render locals: {
+      facade: ProjectFacade.new(project)
+    }
   end
 
 
 end
-

@@ -19,5 +19,10 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'projects#index'
   end
 
-  resources :projects, only: [:show]
+  resources :projects, only: [:show, :create]
+
+  namespace :projects do
+    post '/:id/carpools/:carpool_id/update', to: 'carpools#update', as: 'carpool_update'
+    post '/:id/carpools/create', to: 'carpools#create', as: 'create_carpool'
+  end
 end
