@@ -38,7 +38,7 @@ nav {
   right: 0px;
 }
 
-.session_control a:not(.goog_login) {
+.session_control a:not(#Google-login) {
   color: #FFFFFF;
   text-decoration: none;
   line-height: 55px;
@@ -46,7 +46,7 @@ nav {
   margin-right: 16px;
 }
 
-.goog_login button {
+#Google-login button {
   display: block;
   width: 191px;
   height: 46px;
@@ -58,14 +58,14 @@ nav {
   margin-top: 6px;
 }
 
-.goog_login button:focus {
+#Google-login button:focus {
   background-image: url('/img/google/2x/focus.png');
 }
 
-.goog_login button:active {
+#Google-login button:active {
   background-image: url('/img/google/2x/pressed.png');
 }
 
-.goog_login button:disabled {
+#Google-login button:disabled {
   background-image: url('/img/google/2x/disabled.png');
 }

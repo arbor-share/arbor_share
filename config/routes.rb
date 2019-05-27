@@ -4,8 +4,15 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create] do
+    resources :addresses, only: [:update]
+    resources :vehicles, only: [:update]
+  end
 
+  namespace :profile do
+    get '/', to: 'profile#show'
+    get '/edit', to: 'profile#edit'
+  end
 
   namespace :admin do
     resources :projects, only: [:new, :create, :show]

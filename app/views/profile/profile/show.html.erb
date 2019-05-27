@@ -1,0 +1,44 @@
+<main id="user-profile">
+  <section id="user-info">
+    <img class="avatar" src="<%= user.avatar_image %>">
+    <span class="name"><%= user.full_name %></span><br>
+    <span class="email"><%= user.email %></span>
+    <article class="about"><%= user.about %></article>
+  </section>
+
+  <section id="owned-things">
+    <section id="addresses">
+      <h3>Pickup/Dropoff Addresses</h3>
+    <% user.addresses.each do |address| %>
+      <article class="address <%= " default" if address.default? %>">
+        <span class="line-1"><%= address.line_1 %></span><br>
+        <% if address.line_2 %><span class="line-2"><%= address.line_2 %></span><br><% end %>
+        <span class="city"><%= address.city %></span>,
+        <span class="state"><%= address.state %></span>
+        <span class="zip"><%= address.zip %></span>
+        <% unless address.default? %>
+        <%= button_to 'Make Default', user_address_path(user, address), method: :patch %>
+        <% end %>
+      </article>
+    <% end %>
+    </section>
+
+    <section id="vehicles">
+      <h3>Vehicles</h3>
+    <% user.vehicles.each do |vehicle| %>
+      <article class="vehicle<%= " default" if vehicle.default? %>">
+        <span class="color"><%= vehicle.color %></span>
+        <span class="year"><%= vehicle.year %></span>
+        <span class="make"><%= vehicle.make %></span>
+        <span class="model"><%= vehicle.model %></span><br>
+        <span class="fuel-efficiency"><%= vehicle.fuel_efficiency %> <%= vehicle.fuel_efficiency_unit %></span>
+        <span class="fuel-type"><%= vehicle.fuel_type %></span><br>
+        <span class="passenger_limit">Passenger Limit: <%= vehicle.passenger_limit %></span>
+        <% unless vehicle.default? %>
+        <%= button_to 'Make Default', user_vehicle_path(user, vehicle), method: :patch %>
+        <% end %>
+      </article>
+    <% end %>
+    </section>
+  </section>
+</main>
