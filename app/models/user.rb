@@ -19,8 +19,15 @@ class User < ApplicationRecord
     self.vehicles.find_by(default: true)
   end
 
-  def needs_default?
-    self.default_vehicle.nil?
+  def default_address
+    self.addresses.find_by(default: true)
+  end
+
+  def needs_default?(child)
+    case child
+    when :vehicle then self.default_vehicle.nil?
+    when :address then self.default_address.nil?
+    end
   end
 
   def has_address?
@@ -28,6 +35,16 @@ class User < ApplicationRecord
   end
 
   def add_vehicle(params)
-    Vehicle.create(params.merge({owner: self, default: needs_default?}))
+    Vehicle.create(params.merge({
+                    owner: self,
+                    default: needs_default?(:vehicle)
+                  }))
+  end
+
+  def add_address(params)
+    Address.create(params.merge({
+                    owner: self,
+                    default: needs_default?(:address)
+                  }))
   end
 end
