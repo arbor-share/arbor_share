@@ -21,6 +21,7 @@
         <% end %>
       </article>
     <% end %>
+    <button id="add-an-address">Add an Address</button>
     </section>
 
     <section id="vehicles">
@@ -42,6 +43,10 @@
     <button id="add-a-vehicle">Add a Vehicle</button>
     </section>
   </section>
+
+  <div id="new-address">
+    <%= render partial: 'shared/address_form', locals: { user: user } %>
+  </div>
 
   <div id="new-vehicle">
     <%= render partial: 'shared/vehicle_form', locals: { user: user } %>
