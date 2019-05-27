@@ -32,8 +32,8 @@ RSpec.describe User, type: :model do
     it{ should define_enum_for(:role)
                .with_values([:default, :organizer, :admin]) }
   end
-  
-    describe 'instance methods' do
+
+  describe 'instance methods' do
     describe '#default_vehicle' do
       it 'returns the default vehicle of a user' do
         user_1 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
@@ -54,4 +54,5 @@ RSpec.describe User, type: :model do
         expect(user_2.has_address?).to eq(false)
       end
     end
+  end
 end
