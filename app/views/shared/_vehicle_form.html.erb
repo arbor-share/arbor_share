@@ -1,0 +1,28 @@
+<%= form_for :vehicle, url: user_vehicles_path(user) do |f| %>
+  <%= f.label :make %>
+  <%= f.text_field :make %>
+
+  <%= f.label :model %>
+  <%= f.text_field :model %>
+
+  <%= f.label :year %>
+  <%= f.number_field :year %>
+
+  <%= f.label :color %>
+  <%= f.number_field :color %>
+
+  <%= f.label :fuel_efficiency %>
+  <%= f.number_field :fuel_efficiency %>
+
+  <%= f.label :fuel_efficiency_unit %>
+  <%= f.select :fuel_efficiency_unit do %>
+    <%= options_for_select(Vehicle.fuel_efficiency_units.map{|opt|opt.first}) %>
+  <% end %>
+
+  <%= f.label :fuel_type %>
+  <%= f.select :fuel_type do %>
+    <%= options_for_select(Vehicle.fuel_types.map{|opt|opt.first}) %>
+  <% end %>
+
+  <%= f.submit 'Add this vehicle' %>
+<% end %>
