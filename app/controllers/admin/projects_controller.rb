@@ -5,10 +5,15 @@ class Admin::ProjectsController < Admin::BaseController
   end
 
   def create
-    project = Project.create(project_params)
-    Address.create(location_params.merge(owner: project))
-    flash[:success] = "Your project was successfully created!"
-    redirect_to admin_project_path(project.id)
+    project = Project.new(project_params)
+    if project.save
+      Address.create(location_params.merge(owner: project))
+      flash[:success] = "Your project was successfully created!"
+      redirect_to admin_project_path(project)
+    else
+      flash[:alert] = "Invalid input. Please try again"
+      redirect_to new_admin_project_path
+    end
   end
 
   def show
@@ -41,6 +46,7 @@ class Admin::ProjectsController < Admin::BaseController
 
   def destroy
     project = Project.find(params[:id])
+    project.location.destroy
     project.destroy
     flash[:success] = "Project successfully deleted!"
     redirect_to admin_dashboard_path
