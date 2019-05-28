@@ -67,7 +67,7 @@ RSpec.describe 'as a logged in user' do
     it 'can leave the carpool' do
       # As a driver,
       # on the carpool show page,
-      visit projects_carpool_path(@carpool)
+      visit projects_carpool_path(@project1, @carpool)
       # I see a button to 'Leave Carpool',
       click_button 'Leave Carpool'
       # When I click the button,
