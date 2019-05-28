@@ -1,0 +1,32 @@
+<%= form_for :vehicle, url: user_vehicles_path(user) do |f| %>
+  <%= tag.h3 'New Vehicle:' %>
+  <%= f.label :make %>
+  <%= f.text_field :make %>
+
+  <%= f.label :model %>
+  <%= f.text_field :model %><br>
+
+  <%= f.label :color %>
+  <%= f.text_field :color %>
+
+  <%= f.label :year %>
+  <%= f.number_field :year %><br>
+
+  <%= f.label :passenger_limit %>
+  <%= f.number_field :passenger_limit %><br>
+
+  <%= f.label :fuel_efficiency %>
+  <%= f.number_field :fuel_efficiency %>
+
+  <%= f.label :fuel_efficiency_unit %>
+  <%= f.select :fuel_efficiency_unit do %>
+    <%= options_for_select(Vehicle.fuel_efficiency_units.map{|opt|opt.first}) %>
+  <% end %><br>
+
+  <%= f.label :fuel_type %>
+  <%= f.select :fuel_type do %>
+    <%= options_for_select(Vehicle.fuel_types.map{|opt|opt.first}) %>
+  <% end %><br>
+
+  <%= f.submit 'Add this vehicle' %>
+<% end %>

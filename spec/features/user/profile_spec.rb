@@ -87,13 +87,13 @@ RSpec.describe 'as a logged in user' do
           expect(page).to_not have_content(@address1.line_1)
         end
 
-        within('.address:first-of-type') do
+        within('.address:last-of-type') do
           click_button 'Make Default'
         end
       end
 
       within '.address.default' do
-        expect(page).to have_content(@address3.line_1)
+        expect(page).to have_content(@address1.line_1)
 
         expect(page).to_not have_content(@address2.line_1)
       end

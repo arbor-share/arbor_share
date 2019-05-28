@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   resources :users, only: [:new, :create] do
-    resources :addresses, only: [:update]
-    resources :vehicles, only: [:update]
+    resources :addresses, only: [:create, :update]
+    resources :vehicles, only: [:create, :update]
   end
 
   namespace :profile do

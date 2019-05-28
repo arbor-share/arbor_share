@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       session[:oauth_details] = nil
     else
       # WE HAVE PORBLEM
-      binding.pry
+      # TODO: Decide on sad path behavior
     end
     redirect_to '/'
   end

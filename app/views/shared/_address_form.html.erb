@@ -1,0 +1,21 @@
+<%= form_for :address, url: user_addresses_path(user) do |f| %>
+  <%= tag.h3 'New Address:' %>
+  <%= f.label :line_1 %>
+  <%= f.text_field :line_1 %><br>
+
+  <%= f.label :line_2 %>
+  <%= f.text_field :line_2 %><br>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %>
+
+  <%= f.label :state %>
+  <%= f.select :state do %>
+    <%= options_for_select(Address.states.map{|opt|opt.first}) %>
+  <% end %>
+
+  <%= f.label :zip %>
+  <%= f.text_field :zip %><br>
+
+  <%= f.submit 'Add this address' %>
+<% end %>

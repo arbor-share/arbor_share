@@ -32,8 +32,8 @@ RSpec.describe User, type: :model do
     it{ should define_enum_for(:role)
                .with_values([:default, :organizer, :admin]) }
   end
-  
-    describe 'instance methods' do
+
+  describe 'instance methods' do
     describe '#default_vehicle' do
       it 'returns the default vehicle of a user' do
         user_1 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
@@ -41,6 +41,22 @@ RSpec.describe User, type: :model do
         def_vehicle = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2, default: true)
 
         expect(user_1.default_vehicle).to eq(def_vehicle)
+      end
+    end
+
+    describe '#needs_default?(child)' do
+      it 'returns true if the user does not have a default of the child resource' do
+        user = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
+
+        expect(user.needs_default?(:vehicle)).to eq(true)
+        expect(user.needs_default?(:address)).to eq(true)
+
+        Vehicle.create!(owner: user, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2, default: true)
+        Address.create!(owner: user, line_1: "In a van", line_2: "down by the river", city: "Denver", state: "CO", zip: 80206, default: true)
+        user.reload
+
+        expect(user.needs_default?(:vehicle)).to eq(false)
+        expect(user.needs_default?(:address)).to eq(false)
       end
     end
 
@@ -54,4 +70,27 @@ RSpec.describe User, type: :model do
         expect(user_2.has_address?).to eq(false)
       end
     end
+
+    describe '#add_vehicle' do
+      it 'adds a vehicle to the user\'s vehicle list' do
+        user = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
+        vehicle = {make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 2}
+
+        expect(user.vehicles.count).to eq(0)
+        user.add_vehicle(vehicle)
+        expect(user.vehicles.count).to eq(1)
+      end
+    end
+
+    describe '#add_address' do
+      it 'adds a address to the user\'s address list' do
+        user = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
+        address = {line_1: "In a van", line_2: "down by the river", city: "Denver", state: "CO", zip: 80206}
+
+        expect(user.addresses.count).to eq(0)
+        user.add_address(address)
+        expect(user.addresses.count).to eq(1)
+      end
+    end
+  end
 end

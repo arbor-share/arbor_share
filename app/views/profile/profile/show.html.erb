@@ -21,6 +21,7 @@
         <% end %>
       </article>
     <% end %>
+    <button id="add-an-address">Add an Address</button>
     </section>
 
     <section id="vehicles">
@@ -39,6 +40,36 @@
         <% end %>
       </article>
     <% end %>
+    <button id="add-a-vehicle">Add a Vehicle</button>
     </section>
   </section>
+
+  <div id="new-address" class="modal hidden">
+    <%= render partial: 'shared/address_form', locals: { user: user } %>
+  </div>
+
+  <div id="new-vehicle" class="modal hidden">
+    <%= render partial: 'shared/vehicle_form', locals: { user: user } %>
+  </div>
+  <script type="text/javascript">
+    let newAddressForm = document.getElementById('new-address')
+    document.getElementById('add-an-address').addEventListener('click', function(){
+      toggleHidden(newAddressForm)
+    })
+    newAddressForm.addEventListener('click', function(e){
+      if(e.target == this){
+        toggleHidden(this)
+      }
+    })
+
+    let newVehicleForm = document.getElementById('new-vehicle')
+    document.getElementById('add-a-vehicle').addEventListener('click', function(){
+      toggleHidden(newVehicleForm)
+    })
+    newVehicleForm.addEventListener('click', function(e){
+      if(e.target == this){
+        toggleHidden(this)
+      }
+    })
+  </script>
 </main>
