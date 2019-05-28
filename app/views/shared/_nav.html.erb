@@ -9,6 +9,9 @@
   </section>
   <section class="session_control">
   <% if current_user %>
+    <% if current_admin? %>
+      <%= link_to 'Admin Dashboard', admin_dashboard_path %>
+    <% end %>
     <%= link_to 'Logout', '/logout', class: 'logout' %>
   <% else %>
     <%= render partial: 'shared/google_login' %>
