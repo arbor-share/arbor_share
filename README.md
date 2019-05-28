@@ -22,4 +22,4 @@ OAuth: Google
 API: Google Maps
 
 ### Schema:
-![Database schema diagram](https://github.com/n-flint/arbor_share/blob/master/documentation/schema.png)
+[![Database schema diagram](https://github.com/n-flint/arbor_share/blob/master/documentation/schema.png)](https://dbdiagram.io/d/5ce48e861f6a891a6a6565ee)
