@@ -1,10 +1,29 @@
+# language: ruby
+
+# rvm:
+#  — 2.4.1p111
+
+# script:
+#  — bundle exec install — jobs=3 — retry=3
+#  — bundle exec rake db:create
+#  — bundle exec rake db:migrate
+#  — bundle exec rspec
+
 language: ruby
-
-rvm:
- — 2.4.1p111
-
+cache: bundler
+rbenv:
+- 2.4.1
+services:
+- postgresql
+before_install:
+- gem update --system
+- gem install bundler:2.0.1
+before_script:
+- cp config/database.yml.travis config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
 script:
- — bundle exec install — jobs=3 — retry=3
- — bundle exec rake db:create
- — bundle exec rake db:migrate
- — bundle exec rspec
+- bundle exec rspec
+# deploy:
+#   provider: heroku
+#   api_key:
+#     secure: 2lecZNwnfXJW2i42FbfjTQJzcGrBTALAbfn8nHu8Kal/YE9aCXLX/uq2yTqskueLLHiwT1WjxVXJEUv7lZP+Por9y5w2gtMM9ogsOVMHglEkNc+T97TJIE5MLrCwIPHO1Xyvufi/HLup4FhSIopwXOQWDSph8VgqZSKZiBHydxULyKCgEAkbRAzLxRsgSJ6IH5N6MAi3cWzYY/7TmVAyLbpuahYFi0Q5bi0TL4cDRVe+1hcSMr5LLpwd7LcE93Bl2fxziMUoSC6otiK/sKAO9uQqUv07OMHd/UvrDG71+nNCdy5GBmcvvYUctwkXvFLFahMhOQZKPyRpHSyva56+XAeFfJedymSSerUR/uy1oyArgTYVwqS92DDpQi5gm/2uPDPWVDnHky+he7mTUyrIVPEAqNJtQNSyZa9WHXn2s2f0gzYSB6AzJjSs8kJ9Uv2abTlGUa0eBvr3+qGbB4+RNFGB9m0go80sSKRmp12k10PReMYoQgACJ2CAB3SXwIJ3zcq2uf7UGddVBLicWCZZCFbK0W3BY+R6ZAe0C1CAryCx3DqhvY6pdj4AtCy3/XNbSLeLLp+Vku21RLXIzPafWmNndW3nIFPcyEHbn6dLiMCv6NTgVpdD8+99UGlO4u+igYTrrKPLhLTImAyYYGACamUrPF2+PDZxPsCVBa/f+Lo=
