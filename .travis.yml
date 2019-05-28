@@ -1,13 +1,3 @@
-# language: ruby
-
-# rvm:
-#  — 2.4.1p111
-
-# script:
-#  — bundle exec install — jobs=3 — retry=3
-#  — bundle exec rake db:create
-#  — bundle exec rake db:migrate
-#  — bundle exec rspec
 
 language: ruby
 cache: bundler
@@ -23,7 +13,7 @@ before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 script:
 - bundle exec rspec
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: 2lecZNwnfXJW2i42FbfjTQJzcGrBTALAbfn8nHu8Kal/YE9aCXLX/uq2yTqskueLLHiwT1WjxVXJEUv7lZP+Por9y5w2gtMM9ogsOVMHglEkNc+T97TJIE5MLrCwIPHO1Xyvufi/HLup4FhSIopwXOQWDSph8VgqZSKZiBHydxULyKCgEAkbRAzLxRsgSJ6IH5N6MAi3cWzYY/7TmVAyLbpuahYFi0Q5bi0TL4cDRVe+1hcSMr5LLpwd7LcE93Bl2fxziMUoSC6otiK/sKAO9uQqUv07OMHd/UvrDG71+nNCdy5GBmcvvYUctwkXvFLFahMhOQZKPyRpHSyva56+XAeFfJedymSSerUR/uy1oyArgTYVwqS92DDpQi5gm/2uPDPWVDnHky+he7mTUyrIVPEAqNJtQNSyZa9WHXn2s2f0gzYSB6AzJjSs8kJ9Uv2abTlGUa0eBvr3+qGbB4+RNFGB9m0go80sSKRmp12k10PReMYoQgACJ2CAB3SXwIJ3zcq2uf7UGddVBLicWCZZCFbK0W3BY+R6ZAe0C1CAryCx3DqhvY6pdj4AtCy3/XNbSLeLLp+Vku21RLXIzPafWmNndW3nIFPcyEHbn6dLiMCv6NTgVpdD8+99UGlO4u+igYTrrKPLhLTImAyYYGACamUrPF2+PDZxPsCVBa/f+Lo=
+deploy:
+  provider: heroku
+  api_key:
+    secure: d3jr3NqF/oM4y8xqI06fTB/xlcuPr/5hWxYq5H8z1I6ny4VnZeGMNsI4/RVIGzdI0+VFLmTT3/4DR5XYFWvJ7ISJvxgxYg0i0a70GhDZOPHLzfw51kSz/nyS3EzcOZuyiiZIqSuo5FZrfLDA29qsqqpKBqiaiaxKSaz91cC2cZhzbEP0RIoux7KYNoiouAW9vtrHRtp6cjhfNpvQrW3nMf/eHV18z69mgv2CHRB0X1hYEmTsO4VGbiiPl3hSfkP6HvzH8Ybmv/36EiT4eKGX7kmAlpNudTkcsK7P2T36G/Yy47a0ZFjZcj+ljaz2hqfv2sVdwH5gseQp36pST5Gje+9cyffsSbzGGqCkEFmwnIGBJiB/ZVfVVmMK0tYH5XC8Eey3NJnLIGm1ziG7e3HfOJaEfgrpARc+mJfZX3p7i8x05kTb2WfFdfm2BnIyQ5qWbwciWZOLvsQe90iEY8/Wl2S6PildufzJg28Xmk3tZgicm3nP/rqzNiQMarxwV3MNUwAHp3GspksCMFIxV+iDNkaPdXVh7I0Pqo2FH2l3e51+mtCJLQa91zQtapCUFJsDZZMZiqxGX+P6NAjQkk0dFwHi4evtw6Yr4NRmYzGn/43D5AaGYNZEipviAz8JQ6VBklslS/ZdDO9RAklpdsGB3ugEA9ou2+Ix8r5qpiaLzSE=
