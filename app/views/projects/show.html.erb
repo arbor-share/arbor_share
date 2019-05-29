@@ -13,6 +13,11 @@
         <% facade.carpools.each do |carpool| %>
           <section class='carpool-<%= carpool.id %>'>
             <h3>Driver: <%= carpool.driver_name %></h3>
+            <%  if carpool.driver_id == current_user.id %>
+              <%= link_to 'Cancel Carpool', to: projects_destroy_carpool_path(carpool_id: carpool.id), method: :delete %>
+            <% end %>
+
+            
             <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
               <section class='passengers'>
                 <p>Passengers:</p>
@@ -33,3 +38,4 @@
 <% else %>
   <h3><%= link_to 'Sign in' %> to become a Driver or join a Carpool!</h3>
 <% end %>
+

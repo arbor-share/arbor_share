@@ -35,10 +35,6 @@ class Projects::CarpoolsController < ApplicationController
     # passing one obj to view
     @project = Project.find(params[:id])
     @carpool = Carpool.find(params[:carpool_id])
-    # require 'pry'; binding.pry
-  end
-
-  def destroy
     require 'pry'; binding.pry
   end
 end
