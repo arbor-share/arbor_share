@@ -63,16 +63,19 @@ RSpec.describe 'as a logged in user' do
 
       @vehicle1 = Vehicle.create(owner: @driver)
       @carpool = Carpool.create(driver: @driver, project: @project1, vehicle: @vehicle1, passengers: [@passenger])
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@driver)
     end
     it 'can leave the carpool' do
       # As a driver,
       # on the carpool show page,
       visit projects_carpool_path(@project1, @carpool)
       # I see a button to 'Leave Carpool',
-      click_button 'Leave Carpool'
+      click_link 'Leave Carpool'
+      save_and_open_page
       # When I click the button,
       # I see a confirmation message asking if I'm sure.
-      expect(page).to have_content('Are you sure you want to leave this carpool? You  are the driver.')
+      expect(page).to have_content('Are you sure you want to leave this carpool? You are the driver.')
       click_on 'Yes, Leave Carpool'
       # I am redirected the project show page.
       # I see a flash message "You jumped ship! Abandoner!",
@@ -82,7 +85,6 @@ RSpec.describe 'as a logged in user' do
     end
   end
 end
-
 
 
 # As a driver,
