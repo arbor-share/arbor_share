@@ -54,7 +54,7 @@
           <section class='carpool-<%= carpool.id %>'>
             <h3>Driver: <%= carpool.driver_name %></h3>
             <% if current_user.in_carpool?(carpool) %>
-            <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
+              <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
             <% end %>
 
             <%  if carpool.driver_id == current_user.id %>
@@ -65,7 +65,7 @@
                 <p>Passengers:</p>
                 <ul>
                 <% carpool.passengers.each do |passenger| %>
-                  <li><%= link_to passenger.full_name %></li>
+                  <li><%= passenger.full_name %></li>
                 <% end %>
                 </ul>
                 <% unless facade.check_carpool(carpool, current_user) %>
