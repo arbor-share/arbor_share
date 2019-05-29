@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   def date_must_be_current
     errors.add(:date, "cannot be in the past") if date && date < Date.today
   end
-  
+
   def self.sorted(sort = nil)
     if sort == 'a-z'
       Project.where(active: true).order(:title)
@@ -21,5 +21,10 @@ class Project < ApplicationRecord
     else
       Project.where(active: true).order(:date)
     end
+  end
+
+  def format_coords
+    addr = self.location
+    [addr.longitude.to_f, addr.latitude.to_f]
   end
 end

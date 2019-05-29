@@ -1,5 +1,5 @@
 class ProjectFacade
-  attr_reader :title, :date, :image, :location, :carpools, :description
+  attr_reader :title, :date, :image, :location, :carpools, :description, :coordinates
   def initialize(project)
     @title = project.title
     @description = project.description
@@ -7,6 +7,7 @@ class ProjectFacade
     @image = project.image
     @location = project.location
     @carpools = project.carpools
+    @coordinates = project.format_coords
   end
 
   def no_rides?
