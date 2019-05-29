@@ -42,9 +42,13 @@ class User < ApplicationRecord
   end
 
   def add_address(params)
-    Address.create(params.merge({
+    geocode = MapboxService.new
+    address = Address.new(params.merge({
                     owner: self,
                     default: needs_default?(:address)
                   }))
+    longitude,latitude = geocode.get_coords(address)[:features].first[:center]
+    address.update(longitude: longitude, latitude: latitude)
+    address.save
   end
 end
