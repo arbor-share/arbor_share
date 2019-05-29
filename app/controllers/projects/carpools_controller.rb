@@ -37,4 +37,8 @@ class Projects::CarpoolsController < ApplicationController
     @carpool = Carpool.find(params[:carpool_id])
     # require 'pry'; binding.pry
   end
+
+  def destroy
+    require 'pry'; binding.pry
+  end
 end
