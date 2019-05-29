@@ -5,6 +5,46 @@
    <p>Project Details: <%= facade.description %></p>
    <%= link_to 'See this on google maps' %>
 </section>
+
+<section class='map'>
+  <div id='map' style='width: 400px; height: 300px;'></div>
+  <script>
+    mapboxgl.accessToken = '<%= ENV['MAPBOX_TOKEN'] %>';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/outdoors-v11',
+      center: <%= facade.coordinates %>,
+      zoom: 13,
+    });
+    map.on('load', function() {
+      map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+        if (error) throw error;
+          map.addImage('cat', image);
+          map.addLayer({
+            "id": "points",
+            "type": "symbol",
+            "source": {
+              "type": "geojson",
+              "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                  "type": "Feature",
+                  "geometry": {
+                    "type": "Point",
+                    "coordinates": <%= facade.coordinates %>
+                  }
+                }]
+              }
+            },
+          "layout": {
+          "icon-image": "cat",
+          "icon-size": 0.25
+          }
+        });
+      });
+    });
+  </script>
+</section>
 <% if current_user %>
   <section class='drivers'>
     <%= button_to 'Become a Driver', projects_create_carpool_path %>
