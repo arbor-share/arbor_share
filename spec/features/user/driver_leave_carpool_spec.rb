@@ -68,29 +68,14 @@ RSpec.describe 'as a logged in user' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@driver)
     end
     it 'can cancel the carpool' do
-      # As a driver,
-      # on the carpool show page,
       visit project_path(@project1)
-      # I see a button to 'Leave Carpool',
+
       click_link 'Cancel Carpool'
-      # When I click the button,
-      # I see a confirmation message asking if I'm sure.
-      expect(page).to have_content('Are you sure you want to leave this carpool? You are the driver.')
-      click_on 'Confirm or something, its really broing'
-      # I am redirected the project show page.
-      # I see a flash message "You jumped ship! Abandoner!",
+
       expect(current_path).to eq(project_path(@project1))
-      #interpolate the name?
-      expect(page).to have_content('You are no longer a driver')
+      expect(page).to have_content('You are no longer a driver.')
+      expect(page).to_not have_content("Driver: #{@driver.full_name}")
     end
   end
 end
-
-# As a driver,
-# on the carpool show page,
-# I see a button to 'Leave Carpool',
-# When I click the button,
-# I see a confirmation message asking if I'm sure.
-# I am redirected the project show page.
-# I see a flash message "You jumped ship! Abandoner!",
 

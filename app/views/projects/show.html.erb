@@ -14,7 +14,7 @@
           <section class='carpool-<%= carpool.id %>'>
             <h3>Driver: <%= carpool.driver_name %></h3>
             <%  if carpool.driver_id == current_user.id %>
-              <%= link_to 'Cancel Carpool', to: projects_destroy_carpool_path(carpool_id: carpool.id), method: :delete %>
+              <%= link_to 'Cancel Carpool', destroy_carpool_path(carpool_id: carpool.id), method: :delete, data: {confirm: 'Are you sure you want to leave this carpool? You are the driver.'} %>
             <% end %>
 
             

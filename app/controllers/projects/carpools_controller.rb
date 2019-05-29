@@ -30,11 +30,4 @@ class Projects::CarpoolsController < ApplicationController
     end
     redirect_to project_path(params[:id])
   end
-
-  def show
-    # passing one obj to view
-    @project = Project.find(params[:id])
-    @carpool = Carpool.find(params[:carpool_id])
-    require 'pry'; binding.pry
-  end
 end

@@ -29,7 +29,9 @@ Rails.application.routes.draw do
     # get '/:id/carpools/:carpool_id/show', to: 'carpools#show', as: 'carpool'
 
     # delete '/:id/carpools/:carpool_id/delete', to: 'carpools#destroy', as: 'driver_leave'
-    delete '/:id/carpools/:carpool_id/delete', to: 'carpools/drivers#destroy', as: 'destroy_carpool'
+    # delete '/:id/carpools/:carpool_id/delete', to: 'carpools/drivers#destroy', as: 'destroy_carpool'
     
   end
+    delete 'projects/:id/carpools/:carpool_id/delete', to: 'projects/carpools/drivers#destroy', as: 'destroy_carpool'
+
 end
