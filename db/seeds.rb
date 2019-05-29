@@ -20,7 +20,7 @@ address_31 = Address.create!(owner: user_1, line_1: "123 Anywhere St", city: "Lo
 address_32 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "Los Angeles", state: "CA", zip: "80206", default: false)
 
 project_1 = Project.create!(title: "Go Green!", date: "2019-05-30", organizer: user_2, description: "Plant things.", active: true, image: 'https://picsum.photos/id/1018/400/300')
-address_41 = Address.create!(owner: project_1, line_1: "At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
+address_41 = Address.create!(owner: project_1, line_1: "At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206", longitude: '-104.99625', latitude: '39.75109')
 
 project_2 = Project.create!(title: "Go Blue!", date: "2019-06-30", organizer: user_2, description: "Plant things.", active: true, image: 'https://picsum.photos/id/1015/400/300')
 address_51 = Address.create!(owner: project_2, line_1: "By the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
