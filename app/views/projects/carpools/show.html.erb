@@ -1,1 +1,1 @@
-<%= button_to 'Leave Carpool', to: project_carpool_leave_path(@project1, @project2) %>
+<%= link_to 'Leave Carpool', to: projects_driver_leave_path(@project, @carpool), action: :destroy %>
