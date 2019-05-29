@@ -26,5 +26,7 @@ Rails.application.routes.draw do
     post '/:id/carpools/create', to: 'carpools#create', as: 'create_carpool'
     # resources :carpools, only: [:show]
     get '/:id/carpools/:carpool_id/show', to: 'carpools#show', as: 'carpool'
+    delete '/:id/carpools/:carpool_id/delete', to: 'carpools/drivers#destroy', as: 'driver_leave'
+    
   end
 end
