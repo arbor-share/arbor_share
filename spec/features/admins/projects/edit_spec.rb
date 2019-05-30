@@ -25,15 +25,15 @@ describe 'As an admin' do
      expect(page.find_field('Description').value).to eq(@project_1.description)
      expect(page.find_field('Date').value).to eq('2019-05-30')
 
-     expect(page.find_field('Address Line 1').value).to eq(@project_1.location.line_1)
-     expect(page.find_field('Address Line 2').value).to eq(@project_1.location.line_2)
+     expect(page.find_field('Line 1').value).to eq(@project_1.location.line_1)
+     expect(page.find_field('Line 2').value).to eq(@project_1.location.line_2)
      expect(page.find_field('City').value).to eq(@project_1.location.city)
      expect(page.find_field('Zip').value).to eq(@project_1.location.zip)
      expect(page.find_field('Image').value).to eq(@project_1.image)
      expect(page).to have_checked_field('Active')
 
      fill_in 'Title', with: "New Project Title"
-     fill_in 'address[city]', with: "Fountain"
+     fill_in 'project[location_attributes][city]', with: "Fountain"
 
      page.uncheck('Active')
 
@@ -50,10 +50,10 @@ describe 'As an admin' do
 
     click_button("Update Project")
 
-    expect(current_path).to eq(edit_admin_project_path(@project_1))
-    expect(page).to have_content("Invalid entry. Please try again.")
+    expect(current_path).to eq(admin_project_path(@project_1))
+    expect(page).to have_content("Date cannot be in the past")
     expect(page.find_field('Title').value).to eq(@project_1.title)
-    expect(page.find_field('Date').value).to eq('2019-05-30')
+    expect(page.find_field('Date').value).to eq('2018-01-01')
   end
 
 end
