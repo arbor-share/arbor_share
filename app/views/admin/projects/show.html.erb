@@ -1,7 +1,12 @@
-<h2><%= @project.title %></h2>
-<h3>Active: <%= @project.active %></h3>
-<img class"thumbnail" src="<%= @project.image %>" alt="", width="200" height="200"> <br />
-<time datetime="<%= @project.date %>"><%= @project.date.strftime('%A, %b %-d, %Y') %></time>
+<main id="project-page">
+<section class='project-show-card'>
+  <h1>Project: <%= @project.title %></h1>
+  <img class"thumbnail" src="<%= @project.image %>">
+  <h2>Project Date: <time datetime="<%= @project.date %>"><%= @project.date.strftime('%A, %b %-d, %Y') %></time></h2>
+  <h3>Active: <%= @project.active %></h3>
+  <p>Project Details: <%= @project.description %></p>
+  <%= link_to 'See this on google maps' %>
+</section>
 <div id="info-<%= @project.id %>">
   <p>
     <%= @project.location.line_1 %><br>
@@ -10,9 +15,8 @@
     <%= @project.location.state %>
     <%= @project.location.zip %>
   </p>
-  <h4>Project Description</h4>
-  <span><%= @project.description%></span>
 </div>
 <%= link_to "Edit Project", edit_admin_project_path(@project) %>
 <%= link_to "Delete Project", admin_project_path(@project), method: :delete,
                                                             data: { confirm: "Are you sure?" }%>
+</main>

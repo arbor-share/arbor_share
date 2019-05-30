@@ -12,24 +12,24 @@ user_3 = User.create!(full_name: "Noah", email: "noah@example.com", about: "TBD"
 user_4 = User.create!(full_name: "Vincent", email: "vincent@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
 user_5 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "TBD", avatar_image: nil, google_token: nil, google_id: nil, role: :default, active: true)
 
-address_11 = Address.create!(owner: user_1, line_1: "123 Anywhere St", city: "Denver", state: "CO", zip: "80206", default: true)
-address_12 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "Denver", state: "CO", zip: "80206", default: false)
-address_21 = Address.create!(owner: user_1, line_1: "123 Anywhere St", city: "New York", state: "NY", zip: "80206", default: true)
-address_22 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "New York", state: "NY", zip: "80206", default: false)
-address_31 = Address.create!(owner: user_1, line_1: "123 Anywhere St", city: "Los Angeles", state: "CA", zip: "80206", default: true)
-address_32 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "Los Angeles", state: "CA", zip: "80206", default: false)
+address_11 = Address.create!(owner: user_1, line_1: "123 Anywhere St", city: "Denver", state: "CO", zip: "80206", default: true, longitude: '-100.99625', latitude: '40.75109')
+address_12 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "Denver", state: "CO", zip: "80206", default: false, longitude: '-14.99625', latitude: '9.75109')
+address_21 = Address.create!(owner: user_1, line_1: "123 Anywhere St", city: "New York", state: "NY", zip: "80206", default: true, longitude: '-104.343', latitude: '39.123')
+address_22 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "New York", state: "NY", zip: "80206", default: false, longitude: '-104.925', latitude: '39.79')
+address_31 = Address.create!(owner: user_1, line_1: "123 Anywhere St", city: "Los Angeles", state: "CA", zip: "80206", default: true, longitude: '-104.5', latitude: '29.79')
+address_32 = Address.create!(owner: user_1, line_1: "456 Nowhere St", city: "Los Angeles", state: "CA", zip: "80206", default: false, longitude: '-105.925', latitude: '34.79')
 
 project_1 = Project.create!(title: "Go Green!", date: "2019-05-30", organizer: user_2, description: "Plant things.", active: true, image: 'https://picsum.photos/id/1018/400/300')
-address_41 = Address.create!(owner: project_1, line_1: "At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
+address_41 = Address.create!(owner: project_1, line_1: "At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206", longitude: '-104.99625', latitude: '39.75109')
 
 project_2 = Project.create!(title: "Go Blue!", date: "2019-06-30", organizer: user_2, description: "Plant things.", active: true, image: 'https://picsum.photos/id/1015/400/300')
-address_51 = Address.create!(owner: project_2, line_1: "By the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
+address_51 = Address.create!(owner: project_2, line_1: "By the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206", longitude: '-4.925', latitude: '9.79')
 
 project_3 = Project.create!(title: "Go Red!", date: "2019-07-30", organizer: user_2, description: "Plant things.", active: true, image: 'https://picsum.photos/id/1016/400/300')
-address_61 = Address.create!(owner: project_3, line_1: "Not At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
+address_61 = Address.create!(owner: project_3, line_1: "Not At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206", longitude: '-114.925', latitude: '54.43')
 
 project_4 = Project.create!(title: "Go Brown!", date: "2019-08-30", organizer: user_2, description: "Plant things.", active: false, image: 'https://picsum.photos/id/1028/400/300')
-address_71 = Address.create!(owner: project_4, line_1: "Not At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206")
+address_71 = Address.create!(owner: project_4, line_1: "Not At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206", longitude: '-15.95', latitude: '93.49')
 
 vehicle_1 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)
 vehicle_2 = Vehicle.create!(owner: user_1, make: "Honda", model: "Civic", color: "Blue", year: 2010, fuel_efficiency: 23, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)

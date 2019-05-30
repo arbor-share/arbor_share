@@ -24,3 +24,9 @@ body {
 main {
   margin: 0 20px;
 }
+
+.field_with_errors {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}

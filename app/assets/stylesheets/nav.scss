@@ -9,6 +9,14 @@ nav {
   background-color: #80B541;
 }
 
+.session_control a:not(#Google-login), .main-links a {
+  color: #FFFFFF;
+  text-decoration: none;
+  line-height: 55px;
+  font-size: 30px;
+  margin-right: 25px;
+}
+
 .logo {
   text-align: center;
 }
@@ -33,19 +41,11 @@ nav {
   right: 0px;
 }
 
-a.logout, .main-links a {
-  color: #FFFFFF;
-  text-decoration: none;
-  line-height: 55px;
-  font-size: 30px;
-  margin-right: 16px;
-}
-
 .main-links {
   position: absolute;
   top: 0px;
   left: 0px;
-  margin-left: 16px;
+  margin-left: 25px;
 }
 
 #Google-login button {

@@ -1,5 +1,6 @@
 <%= form_for :address, url: user_addresses_path(user) do |f| %>
   <%= tag.h3 'New Address:' %>
+  <div id="location-left">
   <%= f.label :line_1 %>
   <%= f.text_field :line_1 %><br>
 
@@ -8,7 +9,12 @@
 
   <%= f.label :city %>
   <%= f.text_field :city %>
-
+  </div>
+  <div id="location-right">
+  <%= f.label 'Longitude', for: 'address_longitude' %>
+  <%= tag.input type: :text, name: 'address[longitude]', id: :address_longitude, readonly: true %><br>
+  <%= f.label 'Latitude', for: 'address_latitude' %>
+  <%= tag.input type: :text, name: 'address[latitude]', id: :address_latitude, readonly: true %><br>
   <%= f.label :state %>
   <%= f.select :state do %>
     <%= options_for_select(Address.states.map{|opt|opt.first}) %>
@@ -18,4 +24,6 @@
   <%= f.text_field :zip %><br>
 
   <%= f.submit 'Add this address' %>
+  </div>
+  <%= render partial: 'shared/mapbox_address_selector' %>
 <% end %>

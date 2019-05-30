@@ -1,29 +1,6 @@
-<main>
-  <h3>Edit a Project</h3>
+<main id="project-form">
+  <h2>Edit a Project</h2>
   <div class="edit-project-form">
-    <%= form_for [:admin, @project], action: :edit do |f| %>
-      <%= f.label :title %>
-      <%= f.text_field :title %>
-      <%= f.label :date %>
-      <%= f.text_field :date %>
-      <%= f.label :image %>
-      <%= f.text_field :image %>
-      <%= f.label :description %>
-      <%= f.text_field :description %>
-      <%= tag.label 'Address Line 1', for: 'address_line_1' %>
-      <%= tag.input type: :text, value: @project.location.line_1, name: 'address[line_1]', id: :address_line_1 %><br>
-      <%= tag.label 'Address Line 2', for: 'address_line_2' %>
-      <%= tag.input type: :text, value: @project.location.line_2, name: 'address[line_2]', id: :address_line_2 %><br>
-      <%= tag.label 'City', for: 'address_city' %>
-      <%= tag.input type: :text, value: @project.location.city, name: 'address[city]', id: :address_city %><br>
-      <%= tag.select name: 'address[state]', id: :address_state do %>
-        <%= options_for_select(Address.states.map{|opt|opt.first}, selected: @project.location.state) %>
-      <% end %>
-      <%= tag.label 'Zip', for: 'address_zip' %>
-      <%= tag.input type: :text, value: @project.location.zip, name: 'address[zip]', id: :address_zip %><br>
-      <%= f.label :active %>
-      <%= f.check_box :active %>
-      <%= f.submit %>
-    <% end %>
+    <%= render partial: 'project_form', locals: { project: project } %>
   </div>
 </main>

@@ -1,17 +1,18 @@
 <main>
-  <h1>Current Projects</h1>
   <section class='sorting'>
-  <%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
-  <%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
-  <%= link_to 'Coming Soon', root_path %>
+    Sort by:
+    <%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
+    <%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
+    <%= link_to 'Coming Soon', root_path %>
   </section>
-  
+  <h1>Current Projects</h1>
+
   <div class='projects'>
     <% @projects.each do |project| %>
     <section class="project-<%= project.id %> project-card">
       <h3><%= project.title %></h3>
       <time datetime="<%= project.date %>"><%= project.date.strftime('%A, %b %-d, %Y') %></time>
-      <img class"thumbnail" src="<%= project.image %>" alt="", width="200" height="200">
+      <img class="thumbnail" src="<%= project.image %>" alt="">
       <div id="info-<%= project.id %>">
         <p>
           <%= project.location.line_1 %><br>

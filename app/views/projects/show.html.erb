@@ -1,9 +1,50 @@
+<main id="project-page">
 <section class='project-show-card'>
    <h1>Project: <%= facade.title %></h1>
    <img src="<%= facade.image %>" alt="Picture of <%= facade.title %> site">
    <h2>Project Date: <%= facade.date %></h2>
    <p>Project Details: <%= facade.description %></p>
    <%= link_to 'See this on google maps' %>
+</section>
+
+<section class='map'>
+  <div id='map' style='width: 400px; height: 300px;'></div>
+  <script>
+    mapboxgl.accessToken = '<%= ENV['MAPBOX_TOKEN'] %>';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/outdoors-v11',
+      center: <%= facade.coordinates %>,
+      zoom: 13,
+    });
+    map.on('load', function() {
+      map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+        if (error) throw error;
+          map.addImage('cat', image);
+          map.addLayer({
+            "id": "points",
+            "type": "symbol",
+            "source": {
+              "type": "geojson",
+              "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                  "type": "Feature",
+                  "geometry": {
+                    "type": "Point",
+                    "coordinates": <%= facade.coordinates %>
+                  }
+                }]
+              }
+            },
+          "layout": {
+          "icon-image": "cat",
+          "icon-size": 0.25
+          }
+        });
+      });
+    });
+  </script>
 </section>
 <% if current_user %>
   <section class='drivers'>
@@ -13,11 +54,13 @@
         <% facade.carpools.each do |carpool| %>
           <section class='carpool-<%= carpool.id %>'>
             <h3>Driver: <%= carpool.driver_name %></h3>
+            <% if current_user.in_carpool?(carpool) %>
+            <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
+            <% end %>
+
             <%  if carpool.driver_id == current_user.id %>
               <%= link_to 'Cancel Carpool', destroy_carpool_path(carpool_id: carpool.id), method: :delete, data: {confirm: 'Are you sure you want to leave this carpool? You are the driver.'} %>
             <% end %>
-
-            
             <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
               <section class='passengers'>
                 <p>Passengers:</p>
@@ -38,4 +81,4 @@
 <% else %>
   <h3><%= link_to 'Sign in' %> to become a Driver or join a Carpool!</h3>
 <% end %>
-
+</main>

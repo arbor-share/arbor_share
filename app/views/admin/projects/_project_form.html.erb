@@ -1,0 +1,40 @@
+<%= form_for [:admin, project] do |f| %>
+<div class="details">
+  <h3>Details</h3>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br>
+  <%= f.label :date %>
+  <%= f.date_field :date %><br>
+  <%= f.label :image, "Image URL" %>
+  <%= f.text_field :image %><br>
+  <%= f.label :active %>
+  <%= f.check_box :active, checked: true %><br>
+  <%= f.label :description %><br>
+  <%= f.text_area :description %><br>
+  <%= f.submit tabindex: 2 %>
+</div>
+<div class="location">
+  <h3>Location</h3>
+  <%= f.fields_for :location do |l| %>
+    <div id="location-left">
+      <%= l.label :line_1 %>
+      <%= l.text_field :line_1 %><br>
+      <%= l.label :line_2 %>
+      <%= l.text_field :line_2 %><br>
+      <%= l.label :city %>
+      <%= l.text_field :city %>
+    </div>
+    <div id="location-right">
+      <%= l.label :longitude %>
+      <%= l.text_field :longitude, readonly: true, placeholder: 'Filled automatically', tabindex: -1 %><br>
+      <%= l.label :latitude %>
+      <%= l.text_field :latitude, readonly: true, placeholder: 'from map', tabindex: -1 %><br>
+      <%= l.label :state %>
+      <%= l.select :state, Address.states.map{|opt|opt.first} %>
+      <%= l.label :zip %>
+      <%= l.text_field :zip %>
+    </div>
+  <% end %>
+  <%= render partial: 'shared/mapbox_address_selector' %>
+</div>
+<% end %>
