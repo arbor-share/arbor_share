@@ -29,6 +29,15 @@ RSpec.describe 'as a logged in user' do
       role: 0,
       active: true)
 
+    @passenger_1 = User.create(full_name: 'Noah Pauly',
+      email: 'noah@email.com',
+      about: 'Nothing',
+      avatar_image: 'link to image',
+      google_token: 'google token',
+      google_id: 2,
+      role: 0,
+      active: true)
+
     @project1 = Project.create(title: 'Project 1',
                                 date: '2019-05-30',
                                 description: 'Description of Project 1',
@@ -62,7 +71,7 @@ RSpec.describe 'as a logged in user' do
 
     @vehicle1 = Vehicle.create(owner: @driver, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)
 
-    @carpool = Carpool.create(driver: @driver, project: @project1, vehicle: @vehicle1, passengers: [@passenger])
+    @carpool = Carpool.create(driver: @driver, project: @project1, vehicle: @vehicle1, passengers: [@passenger, @passenger_1])
   end
 
   context 'as a driver on the carpool show page' do
@@ -88,4 +97,3 @@ RSpec.describe 'as a logged in user' do
     end
   end
 end
-
