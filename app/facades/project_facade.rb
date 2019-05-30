@@ -16,4 +16,8 @@ class ProjectFacade
   def check_carpool(carpool, user)
     carpool.full? || carpool.driver == user || carpool.passengers.include?(user)
   end
+
+  def driver?
+    @carpools.passengers
+  end
 end

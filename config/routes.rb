@@ -24,5 +24,14 @@ Rails.application.routes.draw do
   namespace :projects do
     post '/:id/carpools/:carpool_id/update', to: 'carpools#update', as: 'carpool_update'
     post '/:id/carpools/create', to: 'carpools#create', as: 'create_carpool'
+    # resources :carpools, only: [:show]
+
+    # get '/:id/carpools/:carpool_id/show', to: 'carpools#show', as: 'carpool'
+
+    # delete '/:id/carpools/:carpool_id/delete', to: 'carpools#destroy', as: 'driver_leave'
+    # delete '/:id/carpools/:carpool_id/delete', to: 'carpools/drivers#destroy', as: 'destroy_carpool'
+    
   end
+    delete 'projects/:id/carpools/:carpool_id/delete', to: 'projects/carpools/drivers#destroy', as: 'destroy_carpool'
+
 end
