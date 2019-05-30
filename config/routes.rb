@@ -25,4 +25,12 @@ Rails.application.routes.draw do
     post '/:id/carpools/:carpool_id/update', to: 'carpools#update', as: 'carpool_update'
     post '/:id/carpools/create', to: 'carpools#create', as: 'create_carpool'
   end
+
+  # namespace :projects do
+  #   namespace :carpools do
+  #     delete '/:id/carpools/', to: 'drivers#destroy'
+  #   end
+  # end
+
+  delete 'projects/:id/carpools/:carpool_id', to: 'projects/carpools/drivers#destroy'
 end
