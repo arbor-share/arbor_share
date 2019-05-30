@@ -12,7 +12,7 @@
     <% user.addresses.each do |address| %>
       <article class="address <%= " default" if address.default? %>">
         <span class="line-1"><%= address.line_1 %></span><br>
-        <% if address.line_2 %><span class="line-2"><%= address.line_2 %></span><br><% end %>
+        <% if address.line_2 && address.line_2.length > 0 %><span class="line-2"><%= address.line_2 %></span><br><% end %>
         <span class="city"><%= address.city %></span>,
         <span class="state"><%= address.state %></span>
         <span class="zip"><%= address.zip %></span>
@@ -55,6 +55,7 @@
     let newAddressForm = document.getElementById('new-address')
     document.getElementById('add-an-address').addEventListener('click', function(){
       toggleHidden(newAddressForm)
+      map.resize()
     })
     newAddressForm.addEventListener('click', function(e){
       if(e.target == this){
