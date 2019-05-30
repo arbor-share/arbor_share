@@ -14,7 +14,8 @@
     geocoder.query(buildAddress())
   })
 
-  document.querySelector("input[type='submit']").addEventListener('click', blockSubmissionWithoutCoords)
+  var submitButton = document.querySelector("#new-address input[type='submit'], #project-form input[type='submit']")
+  submitButton.addEventListener('click', blockSubmissionWithoutCoords)
 
   var map = new mapboxgl.Map({
     container: 'map',
