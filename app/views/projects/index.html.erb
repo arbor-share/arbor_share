@@ -1,10 +1,11 @@
 <main>
-  <h1>Current Projects</h1>
   <section class='sorting'>
-  <%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
-  <%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
-  <%= link_to 'Coming Soon', root_path %>
+    Sort by: 
+    <%= link_to 'Alphabetical', root_path(sort_by: 'a-z') %>
+    <%= link_to 'Needs Driver', root_path(sort_by: 'needs_driver') %>
+    <%= link_to 'Coming Soon', root_path %>
   </section>
+  <h1>Current Projects</h1>
 
   <div class='projects'>
     <% @projects.each do |project| %>
