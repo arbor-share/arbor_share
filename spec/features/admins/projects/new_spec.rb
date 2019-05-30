@@ -46,8 +46,8 @@ describe 'As an admin' do
 
       click_button 'Create Project'
 
-      expect(current_path).to eq(admin_project_path)
-      expect(page).to have_content("Invalid input. Please try again")
+      expect(current_path).to eq('/admin/projects')
+      expect(page).to have_content("Date cannot be in the past")
     end
   end
 end
