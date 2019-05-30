@@ -122,4 +122,37 @@ div.hidden {
   h3 {
     margin-top: 0;
   }
+
+  label::after {
+    content: ':';
+  }
+
+  #location-left, #location-right {
+    display: inline-block;
+    width: 280px;
+    vertical-align: top;
+  }
+
+  #location-left {
+    label {
+      display: inline-block;
+      min-width: 50px;
+    }
+
+    input {
+      width: 200px
+    }
+  }
+
+  #location-right {
+    label:nth-of-type(-n+2){
+      display: inline-block;
+      min-width: 80px;
+    }
+  }
+
+  #map {
+    width: 570px;
+    height: 220px;
+  }
 }
