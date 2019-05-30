@@ -63,4 +63,12 @@ class User < ApplicationRecord
   def in_carpool?(carpool)
     carpool.driver == self || carpool.passengers.include?(self)
   end
+
+  def is_driver_for?(project)
+    driving_to_projects.include?(project)
+  end
+
+  def driving_to_projects
+    Project.joins(:carpools).where(carpools: {driver: self})
+  end
 end
