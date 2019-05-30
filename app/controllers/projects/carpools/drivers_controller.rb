@@ -2,15 +2,17 @@ class Projects::Carpools::DriversController < ApplicationController
 
   def destroy
     NotificationMailer.driver_cancelled_carpool(passengers_emails).deliver_now
-    #Noah's working on this functionality
-    # - Destroy carpool
-    # - Warning message
-    # - Flash message
-    # - Redirect
+    project = Project.find(params[:id])
+    carpool = Carpool.find(params[:carpool_id])
+    carpool.carpool_passengers.destroy_all
+    carpool.destroy
+
+    flash[:alert] = 'You are no longer a driver.'
+    redirect_to project_path(project)
   end
 
   def passengers_emails(carpool_id)
-    
+
     # passengers = User.select(:email)
     #                  .joins(carpool_passengers: :carpools)
     #                  .where("carpools.id = ?, #{carpool_id}")
