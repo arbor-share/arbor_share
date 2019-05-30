@@ -50,7 +50,6 @@ describe "When I visit a project's show page" do
         expect(page).to have_content("Project: Project 1")
         expect(page).to have_xpath("//img[@src='http://clipart-library.com/image_gallery/104074.png']")
         expect(page).to have_content("Project Details: Description of Project 1")
-        expect(page).to have_link('See this on google maps')
       end
 
       within '.drivers' do
@@ -197,7 +196,6 @@ describe "When I visit a project's show page" do
       expect(page).to_not have_button('Catch a Ride')
       expect(page).to_not have_button('Become a Driver')
       expect(page).to have_content('Sign in to become a Driver or join a Carpool!')
-      expect(page).to have_link('Sign in')
     end
   end
 end
