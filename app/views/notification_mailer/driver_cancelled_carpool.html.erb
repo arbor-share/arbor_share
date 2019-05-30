@@ -10,7 +10,7 @@
       The carpool for <%= @project.title %> on <%= @project.date %> is cancelled.
     </p>
     <p>
-      Please visit <%= @url %> to sign up as a driver or find another ride.
+      Please visit <%= link_to @url, root_url %> to sign up as a driver or find another ride.
     </p>
   </body>
 </html>
