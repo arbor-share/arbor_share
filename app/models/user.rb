@@ -51,4 +51,13 @@ class User < ApplicationRecord
     address.update(longitude: longitude, latitude: latitude)
     address.save
   end
+
+  def format_coords
+    addr = self.default_address
+    [addr.longitude.to_f, addr.latitude.to_f]
+  end
+
+  def in_carpool?(carpool)
+    carpool.driver == self || carpool.passengers.include?(self)
+  end
 end
