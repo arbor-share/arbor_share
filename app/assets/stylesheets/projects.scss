@@ -51,6 +51,10 @@
   section {
     clear: both;
   }
+
+  section.map {
+    clear: unset;
+  }
 }
 
 #project-form {
