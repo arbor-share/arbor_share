@@ -1,0 +1,49 @@
+<h1>Carpool for <%= facade.project_name %></h1>
+
+<section class='map'>
+  <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+      mapboxgl.accessToken = '<%= ENV['MAPBOX_TOKEN'] %>';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/outdoors-v11',
+        center: <%= facade.center_coord(current_user) %>,
+        zoom: 15
+      });
+
+      map.on('load', function () {
+
+        map.addLayer({
+          "id": "route",
+          "type": "line",
+          "source": {
+            "type": "geojson",
+            "data": {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "type": "LineString",
+                "coordinates": <%= facade.coord_format(current_user) %>
+              }
+            }
+          },
+          "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+          },
+          "paint": {
+            "line-color": "#888",
+            "line-width": 5
+          }
+        });
+      });
+    </script>
+</section>
+<section class='Attendees'>
+  <h2>Driver: <%= facade.driver_name %> - Email: <%= facade.driver_email %></h2>
+  <ul>
+    <% facade.passengers.each do |passenger| %>
+      <li>Passenger: <%= passenger.full_name %> - Email: <%= passenger.email %></li>
+    <% end %>
+  </ul>
+</section>
