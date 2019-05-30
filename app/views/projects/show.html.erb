@@ -55,7 +55,11 @@
           <section class='carpool-<%= carpool.id %>'>
             <h3>Driver: <%= carpool.driver_name %></h3>
             <% if current_user.in_carpool?(carpool) %>
-              <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
+            <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
+            <% end %>
+
+            <%  if carpool.driver_id == current_user.id %>
+              <%= link_to 'Cancel Carpool', destroy_carpool_path(carpool_id: carpool.id), method: :delete, data: {confirm: 'Are you sure you want to leave this carpool? You are the driver.'} %>
             <% end %>
             <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
               <section class='passengers'>
