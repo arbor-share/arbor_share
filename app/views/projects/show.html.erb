@@ -53,6 +53,7 @@
         <% facade.carpools.each do |carpool| %>
           <section class='carpool-<%= carpool.id %>'>
             <h3>Driver: <%= carpool.driver_name %></h3>
+            <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
             <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
               <section class='passengers'>
                 <p>Passengers:</p>
