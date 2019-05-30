@@ -1,0 +1,68 @@
+<div id='map'></div>
+<script>
+  mapboxgl.accessToken = '<%= ENV['MAPBOX_TOKEN'] %>';
+  var lat = document.getElementById('address_latitude');
+  var lng = document.getElementById('address_longitude');
+
+  var locateButton = document.createElement('button')
+  locateButton.type = "button"
+  locateButton.id = "locate-on-map"
+  locateButton.innerText = "Locate on Map"
+  document.getElementById('location-left').appendChild(locateButton)
+
+  locateButton.addEventListener('click', function(){
+    geocoder.query(buildAddress())
+  })
+
+  document.querySelector("input[type='submit']").addEventListener('click', blockSubmissionWithoutCoords)
+
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/outdoors-v11',
+    center: [-104.9848861860048, 39.73922818080996],
+    zoom: 12
+  });
+
+  var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    marker: {
+      draggable: true
+    }
+  })
+
+  geocoder.onAdd(map)
+  geocoder.on('results', addMarkerDragListener)
+
+  function buildAddress(){
+    var l1 = document.querySelector('#address_line_1').value
+    var l2 = document.querySelector('#address_line_2').value
+    var c = document.querySelector('#address_city').value
+    var s = document.querySelector('#address_state').value
+    var z = document.querySelector('#address_zip').value
+    return [l1, l2, c, s, z].join(' ')
+  }
+
+  function onDragEnd() {
+    var lngLat = this.getLngLat();
+    lat.value = lngLat.lat;
+    lng.value = lngLat.lng;
+  }
+
+  function addMarkerDragListener(){
+    if(geocoder.mapMarker == null){
+      window.setTimeout(addMarkerDragListener, 50)
+    } else {
+      geocoder.mapMarker.on('dragend', onDragEnd)
+      onDragEnd.call(geocoder.mapMarker)
+    }
+  }
+
+  function blockSubmissionWithoutCoords(e){
+    if(lat.value == "" || lng.value == ""){
+      e.preventDefault()
+      geocoder.query(buildAddress())
+      alert("Please confirm the map marker is in the correct location.")
+    }
+  }
+</script>
