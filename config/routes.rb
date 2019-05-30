@@ -25,4 +25,6 @@ Rails.application.routes.draw do
     post '/:id/carpools/:carpool_id/update', to: 'carpools#update', as: 'carpool_update'
     post '/:id/carpools/create', to: 'carpools#create', as: 'create_carpool'
   end
+
+  resources :carpools, only: [:show]
 end

@@ -24,4 +24,9 @@ class Project < ApplicationRecord
       Project.where(active: true).order(:date)
     end
   end
+
+  def format_coords
+    addr = self.location
+    [addr.longitude.to_f, addr.latitude.to_f]
+  end
 end
