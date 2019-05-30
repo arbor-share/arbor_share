@@ -1,6 +1,7 @@
 .projects {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   > section {
     flex-basis: 23%;
@@ -9,6 +10,7 @@
     box-shadow: 0 0 3px;
     box-sizing: border-box;
     padding: 5px 15px;
+    margin-bottom: 20px;
 
     * {
       margin: 0;
