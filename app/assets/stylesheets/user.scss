@@ -149,6 +149,10 @@ div.hidden {
       display: inline-block;
       min-width: 80px;
     }
+
+    label[for='project_location_attributes_zip'] {
+      min-width: 0px;
+    }
   }
 
   #map {
