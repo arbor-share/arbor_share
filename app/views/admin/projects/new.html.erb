@@ -1,30 +1,45 @@
-<main>
-  <h3>Add a Project</h3>
+<main id="project-form">
+  <h2>Add a Project</h2>
   <div class="new-project-form">
     <%= form_for [:admin, @project] do |f| %>
+    <div class="details">
+      <h3>Details</h3>
       <%= f.label :title %>
-      <%= f.text_field :title %>
+      <%= f.text_field :title %><br>
       <%= f.label :date %>
-      <%= f.text_field :date %><br>
-      <%= f.label :image %>
+      <%= f.date_field :date %><br>
+      <%= f.label :image, "Image URL" %>
       <%= f.text_field :image %><br>
+      <%= f.label :active %>
+      <%= f.check_box :active, checked: true %><br>
       <%= f.label :description %><br>
-      <%= f.text_area :description %><br><br>
-      <%= tag.label 'Address Line 1', for: 'address_line_1' %>
+      <%= f.text_area :description %><br>
+      <%= f.submit %>
+    </div>
+    <div class="location">
+      <h3>Location</h3>
+      <div id="location-left">
+      <%= tag.label 'Line 1', for: 'address_line_1' %>
       <%= tag.input type: :text, name: 'address[line_1]', id: :address_line_1 %><br>
-      <%= tag.label 'Address Line 2', for: 'address_line_2' %>
+      <%= tag.label 'Line 2', for: 'address_line_2' %>
       <%= tag.input type: :text, name: 'address[line_2]', id: :address_line_2 %><br>
       <%= tag.label 'City', for: 'address_city' %>
       <%= tag.input type: :text, name: 'address[city]', id: :address_city %>
+      </div>
+      <div id="location-right">
+      <%= tag.label 'Longitude', for: 'address_longitude' %>
+      <%= tag.input type: :text, name: 'address[longitude]', id: :address_longitude, readonly: true, placeholder: 'Filled automatically' %><br>
+      <%= tag.label 'Latitude', for: 'address_latitude' %>
+      <%= tag.input type: :text, name: 'address[latitude]', id: :address_latitude, readonly: true, placeholder: 'from map' %><br>
       <%= tag.label 'State', for: 'address_state' %>
       <%= tag.select name: 'address[state]', id: :address_state do %>
         <%= options_for_select(Address.states.map{|opt|opt.first}) %>
       <% end %>
       <%= tag.label 'Zip', for: 'address_zip' %>
-      <%= tag.input type: :text, name: 'address[zip]', id: :address_zip %><br>
-      <%= f.label :active %>
-      <%= f.check_box :active, checked: true %>
-      <%= f.submit %>
+      <%= tag.input type: :text, name: 'address[zip]', id: :address_zip %>
+      </div>
+      <%= render partial: 'shared/mapbox_address_selector' %>
+    </div>
     <% end %>
   </div>
 </main>
