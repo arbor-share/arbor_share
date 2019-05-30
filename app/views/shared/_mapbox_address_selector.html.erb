@@ -1,13 +1,14 @@
 <div id='map'></div>
 <script>
   mapboxgl.accessToken = '<%= ENV['MAPBOX_TOKEN'] %>';
-  var lat = document.getElementById('address_latitude');
-  var lng = document.getElementById('address_longitude');
+  var lat = document.querySelector('#address_latitude, #project_location_attributes_latitude');
+  var lng = document.querySelector('#address_longitude, #project_location_attributes_longitude');
 
   var locateButton = document.createElement('button')
   locateButton.type = "button"
   locateButton.id = "locate-on-map"
   locateButton.innerText = "Locate on Map"
+  locateButton.tabIndex = 1
   document.getElementById('location-left').appendChild(locateButton)
 
   locateButton.addEventListener('click', function(){
@@ -36,11 +37,11 @@
   geocoder.on('results', addMarkerDragListener)
 
   function buildAddress(){
-    var l1 = document.querySelector('#address_line_1').value
-    var l2 = document.querySelector('#address_line_2').value
-    var c = document.querySelector('#address_city').value
-    var s = document.querySelector('#address_state').value
-    var z = document.querySelector('#address_zip').value
+    var l1 = document.querySelector('#address_line_1, #project_location_attributes_line_1').value
+    var l2 = document.querySelector('#address_line_2, #project_location_attributes_line_2').value
+    var c = document.querySelector('#address_city, #project_location_attributes_city').value
+    var s = document.querySelector('#address_state, #project_location_attributes_state').value
+    var z = document.querySelector('#address_zip, #project_location_attributes_zip').value
     return [l1, l2, c, s, z].join(' ')
   }
 
