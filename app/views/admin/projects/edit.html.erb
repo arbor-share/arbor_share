@@ -30,7 +30,7 @@
       <%= tag.label 'Longitude', for: 'address_longitude' %>
       <%= tag.input type: :text, value: @project.location.longitude, name: 'address[longitude]', id: :address_longitude, readonly: true %><br>
       <%= tag.label 'Latitude', for: 'address_latitude' %>
-      <%= tag.input type: :text, value: @project.location.latitude name: 'address[latitude]', id: :address_latitude, readonly: true %><br>
+      <%= tag.input type: :text, value: @project.location.latitude, name: 'address[latitude]', id: :address_latitude, readonly: true %><br>
       <%= tag.label 'State', for: 'address_state' %>
       <%= tag.select name: 'address[state]', id: :address_state do %>
         <%= options_for_select(Address.states.map{|opt|opt.first}, selected: @project.location.state) %>
