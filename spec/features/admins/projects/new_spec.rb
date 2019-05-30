@@ -16,11 +16,11 @@ describe 'As an admin' do
       fill_in 'Title', with: 'Test Project'
       fill_in 'Date', with: 10.days.from_now
       fill_in 'Description', with: 'The testiest of all test projects.'
-      fill_in 'address[line_1]', with: '1331 17th St'
-      fill_in 'address[line_2]', with: 'LL100'
-      fill_in 'address[city]', with: 'Denver'
-      select 'CO', from: 'address[state]'
-      fill_in 'address[zip]', with: '80202'
+      fill_in 'project[location_attributes][line_1]', with: '1331 17th St'
+      fill_in 'project[location_attributes][line_2]', with: 'LL100'
+      fill_in 'project[location_attributes][city]', with: 'Denver'
+      select 'CO', from: 'project[location_attributes][state]'
+      fill_in 'project[location_attributes][zip]', with: '80202'
       fill_in 'Image', with: 'https://www.historycolorado.org/sites/default/files/media/images/2018/pikes-peak-1273566_1920.jpg'
 
       click_button 'Create Project'
@@ -30,22 +30,23 @@ describe 'As an admin' do
       expect(current_path).to eq(admin_project_path(project))
       expect(page).to have_content("Your project was successfully created!")
       expect(page).to have_content(project.title)
+      expect(page).to have_content(project.location.line_1)
     end
 
     it 'I receive an error message if the new project form is not filled out correctly' do
       fill_in 'Title', with: 'Test Project'
       fill_in 'Date', with: '2018-01-01'
       fill_in 'Description', with: 'The testiest of all test projects.'
-      fill_in 'address[line_1]', with: '1331 17th St'
-      fill_in 'address[line_2]', with: 'LL100'
-      fill_in 'address[city]', with: 'Denver'
-      select 'CO', from: 'address[state]'
-      fill_in 'address[zip]', with: '80202'
+      fill_in 'project[location_attributes][line_1]', with: '1331 17th St'
+      fill_in 'project[location_attributes][line_2]', with: 'LL100'
+      fill_in 'project[location_attributes][city]', with: 'Denver'
+      select 'CO', from: 'project[location_attributes][state]'
+      fill_in 'project[location_attributes][zip]', with: '80202'
       fill_in 'Image', with: 'https://www.historycolorado.org/sites/default/files/media/images/2018/pikes-peak-1273566_1920.jpg'
 
       click_button 'Create Project'
 
-      expect(current_path).to eq(new_admin_project_path)
+      expect(current_path).to eq(admin_project_path)
       expect(page).to have_content("Invalid input. Please try again")
     end
   end

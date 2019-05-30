@@ -11,7 +11,6 @@ class Admin::ProjectsController < Admin::BaseController
   def create
     project = Project.new(project_params)
     if project.save
-      Address.create(location_params.merge(owner: project))
       flash[:success] = "Your project was successfully created!"
       redirect_to admin_project_path(project)
     else
