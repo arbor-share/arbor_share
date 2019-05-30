@@ -1,10 +1,11 @@
 class NotificationMailer < ApplicationMailer
 
-  def driver_cancelled_carpool(passengers_emails)
-    # @url  = 'http://arbor-share.herokuapp.com/'
+  def driver_cancelled_carpool(passengers_emails, project)
+    # @url  = '/'
+    @url  = default_url_options[:host]
     #change to direct to project show page
-    @url  = 'localhost:3000'
-    # @project = params[:project] #???
+    @project = project
+    binding.pry
     mail(to: passengers_emails, subject: 'Your Ride Was Cancelled')
   end
 
