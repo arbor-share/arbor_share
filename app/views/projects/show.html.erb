@@ -76,7 +76,7 @@
             <% end %>
           </ul>
           <% end %>
-          <% unless facade.check_carpool(carpool, current_user) %>
+          <% unless facade.check_carpool(carpool, current_user) || current_user.is_driver_for?(facade.model) %>
           <%= button_to 'Catch a Ride', projects_carpool_update_path(carpool_id: carpool.id) %>
           <% end %>
         </section>
