@@ -42,7 +42,7 @@
       </script>
     </section>
 
-    <h2>Project Date: <%= facade.date %></h2>
+    <h2>Project Date: <time datetime="<%= facade.date %>"><%= facade.date.strftime('%A, %b %-d, %Y') %></time></h2>
     <p>Project Details: <%= facade.description %></p>
   </section>
   <% if current_user %>
@@ -51,25 +51,31 @@
     <%= button_to 'Become a Driver', projects_create_carpool_path %>
     <% end %>
     <% unless facade.no_rides? %>
+    <h3>Available Carpools</h3>
     <section class='carpools'>
       <% facade.carpools.each do |carpool| %>
       <section class='carpool-<%= carpool.id %>'>
         <h3>Driver: <%= carpool.driver_name %></h3>
+        <div class="controls">
         <% if current_user.in_carpool?(carpool) %>
-        <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
+        <%= link_to 'View Details', carpool_path(carpool) %>
         <% end %>
 
         <%  if carpool.driver_id == current_user.id %>
         <%= link_to 'Cancel Carpool', destroy_carpool_path(carpool_id: carpool.id), method: :delete, data: {confirm: 'Are you sure you want to leave this carpool? You are the driver.'} %>
         <% end %>
+        </div>
         <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
         <section class='passengers'>
-          <p>Passengers:</p>
+          <% if carpool.passengers.count == 0 %>
+          <h4>No Passengers Yet!</h4>
+          <% else %>
           <ul>
             <% carpool.passengers.each do |passenger| %>
             <li><%= passenger.full_name %></li>
             <% end %>
           </ul>
+          <% end %>
           <% unless facade.check_carpool(carpool, current_user) %>
           <%= button_to 'Catch a Ride', projects_carpool_update_path(carpool_id: carpool.id) %>
           <% end %>

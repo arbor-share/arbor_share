@@ -1,0 +1,30 @@
+#project-page {
+  .carpools {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .carpools > section {
+    flex-basis: auto;
+    width: 250px;
+    background-color: #D7EDC2;
+    box-shadow: 0 0 3px;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0 0 5px;
+    }
+
+    h4 {
+      margin: 5px 0;
+      font-size: 16px;
+      font-weight: normal;
+    }
+
+    a {
+      font-size: 12px;
+    }
+  }
+}
