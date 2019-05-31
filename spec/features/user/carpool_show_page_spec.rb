@@ -12,7 +12,7 @@ describe 'As a logged in user' do
     @address_13 = Address.create!(owner: @user_3, line_1: "084 Nowhere St", city: "Denver", state: "CO", zip: "80206", default: true, longitude: '-104.343', latitude: '39.123')
     @address_14 = Address.create!(owner: @user_4, line_1: "0483 Nowhere St", city: "Denver", state: "CO", zip: "80206", default: true, longitude: '-104.925', latitude: '39.79')
 
-    @project_1 = Project.create!(title: "Go Green!", date: "2019-05-30", organizer: @user_3, description: "Plant things.", active: true, image: 'https://picsum.photos/id/1018/400/300')
+    @project_1 = Project.create!(title: "Go Green!", date: 1.week.from_now, organizer: @user_3, description: "Plant things.", active: true, image: 'https://picsum.photos/id/1018/400/300')
     @address_41 = Address.create!(owner: @project_1, line_1: "At the trailhead", line_2: "Off I-70", city: "Frisco", state: "CO", zip: "80206", longitude: '-104.99625', latitude: '39.75109')
 
     @vehicle_1 = Vehicle.create!(owner: @user_1, make: "Honda", model: "Civic", color: "White", year: 2004, fuel_efficiency: 24, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)

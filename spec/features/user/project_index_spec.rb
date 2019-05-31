@@ -31,14 +31,14 @@ RSpec.describe 'as a logged in user' do
                               active: true)
 
       @project1 = Project.create(title: 'Project 1',
-                                  date: '2019-05-30',
+                                  date: 1.week.from_now,
                                   description: 'Description of Project 1',
                                   image: 'http://clipart-library.com/image_gallery/104074.png',
                                   organizer: @organizer,
                                   active: true)
 
       @project2 = Project.create(title: 'Project 2',
-                                  date: '2019-06-30',
+                                  date: 5.weeks.from_now,
                                   description: 'Description of Project 2',
                                   image: 'http://clipart-library.com/image_gallery/104074.png',
                                   organizer: @organizer,

@@ -22,7 +22,7 @@ describe "When I visit a project's show page" do
         active: true)
 
       @project1 = Project.create(title: 'Project 1',
-                                  date: '2019-05-30',
+                                  date: 1.week.from_now,
                                   description: 'Description of Project 1',
                                   image: 'http://clipart-library.com/image_gallery/104074.png',
                                   organizer: @organizer,
@@ -77,7 +77,6 @@ describe "When I visit a project's show page" do
         expect(page).to have_content("Available Seats: 2 of 3")
         expect(page).to have_button('Catch a Ride')
         within '.passengers' do
-          expect(page).to have_content('Passengers:')
           expect(page).to have_content(user_2.full_name)
         end
       end
@@ -122,6 +121,7 @@ describe "When I visit a project's show page" do
         expect(page).to have_button('Catch a Ride')
         expect(page).to have_content("Available Seats: 2 of 2")
         within '.passengers' do
+          expect(page).to have_content('No Passengers Yet!')
           expect(page).to_not have_content('Person mchelper')
         end
         click_button 'Catch a Ride'

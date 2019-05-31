@@ -31,7 +31,7 @@ RSpec.describe Project, type: :model do
                                 active: true)
 
        project1 = Project.create(title: 'A Project 1',
-                                    date: '2019-07-30',
+                                    date: 9.weeks.from_now,
                                     description: 'Description of Project 1',
                                     image: 'http://clipart-library.com/image_gallery/104074.png',
                                     organizer: organizer,
@@ -64,21 +64,21 @@ RSpec.describe Project, type: :model do
                                 active: true)
 
         @project1 = Project.create(title: 'A Project 1',
-                                    date: '2019-07-30',
+                                    date: 9.weeks.from_now,
                                     description: 'Description of Project 1',
                                     image: 'http://clipart-library.com/image_gallery/104074.png',
                                     organizer: @organizer,
                                     active: true)
 
         @project2 = Project.create(title: 'C Project 2',
-                                    date: '2019-06-30',
+                                    date: 5.weeks.from_now,
                                     description: 'Description of Project 2',
                                     image: 'http://clipart-library.com/image_gallery/104074.png',
                                     organizer: @organizer,
                                     active: true)
 
         @project3 = Project.create(title: 'B Project 3',
-                              date: '2019-05-30',
+                              date: 1.week.from_now,
                               description: 'Description of Project 3',
                               image: 'http://clipart-library.com/image_gallery/104074.png',
                               organizer: @organizer,
