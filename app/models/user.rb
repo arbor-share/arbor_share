@@ -69,6 +69,6 @@ class User < ApplicationRecord
   end
 
   def driving_to_projects
-    Project.joins(:carpools).where(carpools: {driver: self})
+    @_driving_to_projects ||= Project.joins(:carpools).where(carpools: {driver: self})
   end
 end
