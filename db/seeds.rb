@@ -5,6 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+CarpoolPassenger.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!(CarpoolPassenger.table_name)
+Carpool.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!(Carpool.table_name)
+Vehicle.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!(Vehicle.table_name)
+Address.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!(Address.table_name)
+Project.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!(Project.table_name)
+UserBlock.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!(UserBlock.table_name)
+User.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!(User.table_name)
+
+rng = Random.new(95645032351715211055821224457215536482)
 
 user_1 = User.create!(full_name: "Jon", email: "jon@example.com", about: "I am super cool user person thanx.", avatar_image: 'https://lh4.googleusercontent.com/-Z1B1qMSGKh4/AAAAAAAAAAI/AAAAAAAAADA/3TMpm2XMghg/photo.jpg', google_token: nil, google_id: ENV['USER_1_GID'], role: :default, active: true)
 user_2 = User.create!(full_name: "Erin", email: "erin@example.com", about: "I am sooo hip.", avatar_image: 'https://lh6.googleusercontent.com/-J9dEbNBA8oQ/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcDxX2elApRbpb7sH4x5IKRPn6KMw/mo/photo.jpg', google_token: nil, google_id: ENV['USER_2_GID'], role: :organizer, active: true)
@@ -46,3 +62,41 @@ carpool_passenger_1 = CarpoolPassenger.create!(carpool: carpool_1, passenger: us
 
 user_block_1 = UserBlock.create!(blocking_user: user_1, blocked_user: user_5)
 user_block_2 = UserBlock.create!(blocking_user: user_4, blocked_user: user_5)
+
+names = %w[Nicolas Luke Renato Patricia Renaldo Dennis Hong Thanh Leif Elton Mohammed Valentin Rosendo Cesar Charley Kerry Dewey Noble Gerard Oliver Brad Chance Doyle Dewayne Martin Marvin Jerrell Hipolito Elliot Leroy]
+names += %w[Damaris Shaunte Santana Albertha Samara Malinda Ouida Melaine Yun Melony Rosalina Lasandra Kirstin Carmon Obdulia Zenobia Yolande Kenda Abigail Gisele Deane Cherlyn Elizabet Venetta Jerlene Pearlene Vania Tish Tisa Rachel]
+last_names = %w[Astin Atkinson Pouncy Baumann Merriweather Vanderveen Altizer Alexandria Tomson Trott Lefler Mckoy Reel Stearn Crumb Burley Hitchings Padgett Stephenson Delcambre Lovelace Rascon Moretti Sher Haller Hulings Brent Anzalone Salamanca Awad Kealoha Chock Crayton Cobos Toribio Satterfield Diggs Cushenberry Mcentyre Montgomery Shorter Kreiner Stanley Harrelson Ranieri Mcelfresh Fiecke Mastroianni Barlowe Postma]
+images = [0,1,10,100,1000,1001,1002,1003,1004,1005,1006,1008,1009,101,1010,1011,1012,1013,1014,1015,1016,1018,1019,102,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029,103,1031,1032,1033,1035,1036,1037,1038,1039,104,1040,1041,1042,1043,1044,1045,1047,1048,1049,1050,1051,1052,1053,1054,1055,1056]
+
+demo_users = names.map do |name|
+  user = User.create!(full_name: "#{name} #{last_names.sample(random: rng)}",
+  email: "#{name.downcase}@example.com",
+  about: "I am a demo user.",
+  avatar_image: "https://picsum.photos/id/#{images.shift}/160",
+  google_token: nil,
+  google_id: nil,
+  role: :default,
+  active: true)
+  Address.create!(owner: user, line_1: "At #{name}'s favorite place", city: "Denver", state: "CO", zip: "80802", default: true, longitude: rng.rand((-105.5000)..(-104.5000)).to_s, latitude: rng.rand(39.7000..39.8000).to_s)
+  user
+end
+
+projects = [project_1, project_2, project_3, project_5, project_6]
+carpools = []
+
+drivers = demo_users.sample(12, random: rng)
+drivers.each do |driver|
+  vehicle = Vehicle.create!(owner: driver, make: "Honda", model: "Civic", color: "Silver", year: 2012, fuel_efficiency: 35, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)
+  (1..rng.rand(1..2)).each do |i|
+    undriven = projects.dup
+    carpools << Carpool.create!(driver: driver, project: undriven.delete_at(rng.rand(0..(undriven.count-1))), vehicle: vehicle)
+  end
+end
+
+carpools.each do |carpool|
+  potential_passengers = demo_users.dup
+  potential_passengers.delete(carpool.driver)
+  (1..rng.rand(1..3)).each do |i|
+    CarpoolPassenger.create!(carpool: carpool, passenger: potential_passengers.delete_at(rng.rand(0..(potential_passengers.count-1))))
+  end
+end
