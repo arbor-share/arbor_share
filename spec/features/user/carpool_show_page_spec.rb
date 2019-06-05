@@ -24,9 +24,14 @@ describe 'As a logged in user' do
 
     visit carpool_path(@carpool_1)
 
-    expect(page).to have_content("Driver: #{@user_1.full_name} - Email: #{@user_1.email}")
-    expect(page).to have_content("Passenger: #{@user_4.full_name} - Email: #{@user_4.email}")
-    expect(page).to_not have_content("Passenger: #{@user_2.full_name} - Email: #{@user_2.email}")
+    within '.attendees' do
+      expect(page).to have_content("#{@user_1.full_name} - #{@user_1.email}")
+      within 'ul' do
+        expect(page).to have_content("#{@user_4.full_name} - #{@user_4.email}")
+        expect(page).to_not have_content("#{@user_2.full_name} - #{@user_2.email}")
+        expect(page).to_not have_content("#{@user_1.full_name} - #{@user_1.email}")
+      end
+    end
     expect(page).to have_css('.map')
   end
 end
