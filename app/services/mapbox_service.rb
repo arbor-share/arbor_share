@@ -8,7 +8,11 @@ class MapboxService
 
   def get_geo(coord_list)
     conn = Faraday.new('https://api.mapbox.com/directions/v5/mapbox/driving/')
-    response = conn.get("#{coord_prep(coord_list) + '?access_token=' + api_key + '&geometries=geojson'}")
+    response = conn.get(coord_prep(coord_list)) do |r|
+      r.params['access_token'] = api_key
+      r.params['geometries'] = 'geojson'
+      r.params['overview'] = 'full'
+    end
     geo_json = JSON.parse(response.body, symbolize_names: true)
     geo_json[:routes].first[:geometry][:coordinates]
   end
