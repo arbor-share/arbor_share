@@ -13,31 +13,9 @@
           zoom: 13,
         });
         map.on('load', function() {
-          map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
-            if (error) throw error;
-            map.addImage('cat', image);
-            map.addLayer({
-              "id": "points",
-              "type": "symbol",
-              "source": {
-                "type": "geojson",
-                "data": {
-                  "type": "FeatureCollection",
-                  "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                      "type": "Point",
-                      "coordinates": <%= facade.coordinates %>
-                    }
-                  }]
-                }
-              },
-              "layout": {
-                "icon-image": "cat",
-                "icon-size": 0.25
-              }
-            });
-          });
+          var marker = new mapboxgl.Marker()
+            .setLngLat(<%= facade.coordinates %>)
+            .addTo(map);
         });
       </script>
     </section>
