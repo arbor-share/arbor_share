@@ -6,8 +6,8 @@ class User < ApplicationRecord
   has_many :blocked_users, through: :user_blocks
 
   has_many :carpools, foreign_key: 'driver_id'
-  has_many :carpool_passengers
-  has_many :rides, through: :carpool_passengers, class_name: :Carpool
+  has_many :carpool_passengers, foreign_key: 'passenger_id'
+  has_many :rides, through: :carpool_passengers, source: :carpool
 
   enum role: %i[default organizer admin]
 

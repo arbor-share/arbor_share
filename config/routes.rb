@@ -27,5 +27,6 @@ Rails.application.routes.draw do
   end
 
   resources :carpools, only: [:show]
-  delete 'projects/:id/carpools/:carpool_id/delete', to: 'projects/carpools/drivers#destroy', as: 'destroy_carpool'
+  delete '/projects/:id/carpools/:carpool_id/delete', to: 'projects/carpools/drivers#destroy', as: 'destroy_carpool'
+  patch '/projects/:id/carpools/:carpool_id/leave', to: 'projects/carpools/passengers#patch', as: 'leave_carpool'
 end
