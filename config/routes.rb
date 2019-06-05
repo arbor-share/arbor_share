@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create] do
     resources :addresses, only: [:create, :update]
+    post '/addresses/:address_id', to: 'addresses#put'
     resources :vehicles, only: [:create, :update]
+    post '/vehicles/:vehicle_id', to: 'vehicles#put'
   end
 
   namespace :profile do

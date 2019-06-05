@@ -29,12 +29,14 @@
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
     marker: {
-      draggable: true
+      draggable: true,
+      color: 'green'
     }
   })
 
   geocoder.onAdd(map)
   geocoder.on('results', addMarkerDragListener)
+  geocoder.on('results', removeDefaultMarker)
 
   function buildAddress(){
     var l1 = document.querySelector('#address_line_1, #project_location_attributes_line_1').value
@@ -57,6 +59,13 @@
     } else {
       geocoder.mapMarker.on('dragend', onDragEnd)
       onDragEnd.call(geocoder.mapMarker)
+    }
+  }
+
+  function removeDefaultMarker(){
+    if(defaultMarker != null){
+      defaultMarker._element.parentElement.removeChild(defaultMarker._element)
+      defaultMarker == null
     }
   }
 

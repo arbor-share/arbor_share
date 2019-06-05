@@ -8,26 +8,57 @@
 
   <section id="owned-things">
     <section id="addresses">
+      <script type="text/javascript">
+        var userAddresses = {}
+      </script>
       <h3>Pickup/Dropoff Addresses</h3>
     <% user.addresses.each do |address| %>
-      <article class="address <%= " default" if address.default? %>">
+      <article class="address <%= " default" if address.default? %>"><script type="text/javascript">
+        userAddresses['<%= address.id %>'] = {
+          'line_1': '<%= address.line_1 %>',
+          'line_2': '<%= address.line_2 %>',
+          'city': '<%= address.city %>',
+          'state': '<%= address.state %>',
+          'zip': '<%= address.zip %>',
+          'latitude': '<%= address.latitude %>',
+          'longitude': '<%= address.longitude %>'
+        }
+      </script>
         <span class="line-1"><%= address.line_1 %></span><br>
         <% if address.line_2 && address.line_2.length > 0 %><span class="line-2"><%= address.line_2 %></span><br><% end %>
         <span class="city"><%= address.city %></span>,
         <span class="state"><%= address.state %></span>
         <span class="zip"><%= address.zip %></span>
-        <% unless address.default? %>
-        <%= button_to 'Make Default', user_address_path(user, address), method: :patch %>
-        <% end %>
+        <section class="controls">
+          <button id="edit-address-<%= address.id %>" class="edit-button" type="button">Edit</button>
+          <% unless address.default? %>
+          <%= button_to 'Make Default', user_address_path(user, address), method: :patch %>
+          <% end %>
+        </section>
       </article>
     <% end %>
     <button id="add-an-address">Add an Address</button>
     </section>
 
     <section id="vehicles">
+      <script type="text/javascript">
+        var userVehicles = {}
+      </script>
       <h3>Vehicles</h3>
     <% user.vehicles.each do |vehicle| %>
       <article class="vehicle<%= " default" if vehicle.default? %>">
+        <script type="text/javascript">
+          userVehicles['<%= vehicle.id %>'] = {
+            'color': '<%= vehicle.color %>',
+            'year': <%= vehicle.year %>,
+            'make': '<%= vehicle.make %>',
+            'model': '<%= vehicle.model %>',
+            'fuel_efficiency': '<%= vehicle.fuel_efficiency %>',
+            'fuel_efficiency_unit': '<%= vehicle.fuel_efficiency_unit %>',
+            'fuel_type': '<%= vehicle.fuel_type %>',
+            'passenger_limit': '<%= vehicle.passenger_limit %>'
+          }
+        </script>
         <span class="color"><%= vehicle.color %></span>
         <span class="year"><%= vehicle.year %></span>
         <span class="make"><%= vehicle.make %></span>
@@ -35,9 +66,12 @@
         <span class="fuel-efficiency"><%= vehicle.fuel_efficiency %> <%= vehicle.fuel_efficiency_unit %></span>
         <span class="fuel-type"><%= vehicle.fuel_type %></span><br>
         <span class="passenger_limit">Passenger Limit: <%= vehicle.passenger_limit %></span>
-        <% unless vehicle.default? %>
-        <%= button_to 'Make Default', user_vehicle_path(user, vehicle), method: :patch %>
-        <% end %>
+        <section class="controls">
+          <button id="edit-vehicle-<%= vehicle.id %>" class="edit-button" type="button">Edit</button>
+          <% unless vehicle.default? %>
+          <%= button_to 'Make Default', user_vehicle_path(user, vehicle), method: :patch %>
+          <% end %>
+        </section>
       </article>
     <% end %>
     <button id="add-a-vehicle">Add a Vehicle</button>
@@ -62,6 +96,34 @@
         toggleHidden(this)
       }
     })
+    document.querySelectorAll('#addresses .edit-button').forEach(function(elm){
+      elm.addEventListener('click', function(){
+        prefillAddress(this)
+        toggleHidden(newAddressForm)
+        map.resize()
+      })
+    })
+    var defaultMarker
+    function prefillAddress(elm){
+      var addressId = parseInt(elm.id.match(/\d+$/)[0])
+      data = userAddresses[addressId]
+      form = document.getElementById('address_line_1').form
+      form.action = form.action + "/" + addressId
+      document.getElementById('address_line_1').value = data['line_1']
+      document.getElementById('address_line_2').value = data['line_2']
+      document.getElementById('address_city').value = data['city']
+      document.getElementById('address_state').value = data['state']
+      document.getElementById('address_zip').value = data['zip']
+      document.getElementById('address_latitude').value = data['latitude']
+      document.getElementById('address_longitude').value = data['longitude']
+      document.querySelector('input[value="Add this address"]').value = "Edit this address"
+      map.setCenter([data['longitude'], data['latitude']])
+      defaultMarker = new mapboxgl.Marker()
+        .setLngLat([data['longitude'], data['latitude']])
+        .setDraggable(true)
+        .addTo(map);
+      defaultMarker.on('dragend', onDragEnd)
+    }
 
     let newVehicleForm = document.getElementById('new-vehicle')
     document.getElementById('add-a-vehicle').addEventListener('click', function(){
@@ -72,5 +134,26 @@
         toggleHidden(this)
       }
     })
+    document.querySelectorAll('#vehicles .edit-button').forEach(function(elm){
+      elm.addEventListener('click', function(){
+        prefillVehicle(this)
+        toggleHidden(newVehicleForm)
+      })
+    })
+    function prefillVehicle(elm){
+      var vehicleId = parseInt(elm.id.match(/\d+$/)[0])
+      data = userVehicles[vehicleId]
+      form = document.getElementById('vehicle_make').form
+      form.action = form.action + "/" + vehicleId
+      document.getElementById('vehicle_make').value = data['make']
+      document.getElementById('vehicle_model').value = data['model']
+      document.getElementById('vehicle_color').value = data['color']
+      document.getElementById('vehicle_year').value = data['year']
+      document.getElementById('vehicle_passenger_limit').value = data['passenger_limit']
+      document.getElementById('vehicle_fuel_efficiency').value = data['fuel_efficiency']
+      document.getElementById('vehicle_fuel_efficiency_unit').value = data['fuel_efficiency_unit']
+      document.getElementById('vehicle_fuel_type').value = data['fuel_type']
+      document.querySelector('input[value="Add this vehicle"]').value = "Edit this vehicle"
+    }
   </script>
 </main>
