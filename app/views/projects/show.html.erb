@@ -25,7 +25,7 @@
   </section>
   <% if current_user %>
   <section class='drivers'>
-    <% unless current_user.is_driver_for?(facade.model) %>
+    <% unless current_user.is_participating_in?(facade.model) %>
     <%= button_to 'Become a Driver', projects_create_carpool_path %>
     <% end %>
     <% unless facade.no_rides? %>
