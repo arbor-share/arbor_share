@@ -34,6 +34,8 @@ address_21 = Address.create!(owner: user_2, line_1: "Central Park S and 7th", ci
 address_22 = Address.create!(owner: user_2, line_1: "World Trade Center Memorial", city: "New York", state: "NY", zip: "10007", default: false, longitude: '-74.0122', latitude: '40.7115')
 address_31 = Address.create!(owner: user_3, line_1: "Dodgers Stadium parking lot", city: "Los Angeles", state: "CA", zip: "90099", default: true, longitude: '-118.2411', latitude: '34.0682')
 address_32 = Address.create!(owner: user_3, line_1: "Union Station loading area", line_2: "West side", city: "Los Angeles", state: "CA", zip: "90099", default: false, longitude: '-118.2368', latitude: '34.0561')
+address_41 = Address.create!(owner: user_4, line_1: "Civic Center Station", line_2: "Along Colfax westbound", city: "Denver", state: "CO", zip: "80202", default: false, longitude: '-104.9870', latitude: '39.7402')
+address_42 = Address.create!(owner: user_4, line_1: "Union Station", line_2: "Wynkoop and 17th", city: "Denver", state: "CO", zip: "80202", default: true, longitude: '-104.9997', latitude: '39.7528')
 
 project_1 = Project.create!(title: "Colorado Trail Restoration", date: 2.weeks.from_now, organizer: user_2, description: "EXAMPLE PROJECT - DESCRIPTION MOST LIKELY DOES NOT ACCURATELY DESCRIBE ANY REAL PLACE. The Colorado Trail has a 0.2 mile section which has been heavily eroded and is in desperate need of renovation. Come help us rebuild the base and seed nearby ground cover to help prevent future erosion.", active: true, image: 'https://picsum.photos/id/1018/400/300')
 address_p1_1 = Address.create!(owner: project_1, line_1: "Trailhead Parking Lot", line_2: "Platte River Rd", city: "Sedalia", state: "CO", zip: "80135", longitude: '-105.17264859140049', latitude: '39.4075517143136')
@@ -86,9 +88,9 @@ carpools = []
 
 drivers = demo_users.sample(12, random: rng)
 drivers.each do |driver|
-  vehicle = Vehicle.create!(owner: driver, make: "Honda", model: "Civic", color: "Silver", year: 2012, fuel_efficiency: 35, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: 3, default: true)
+  vehicle = Vehicle.create!(owner: driver, make: "Honda", model: "Civic", color: "Silver", year: 2012, fuel_efficiency: 35, fuel_type: "Gasoline", fuel_efficiency_unit: "MPG", passenger_limit: rng.rand(2..5), default: true)
+  undriven = projects.dup
   (1..rng.rand(1..2)).each do |i|
-    undriven = projects.dup
     carpools << Carpool.create!(driver: driver, project: undriven.delete_at(rng.rand(0..(undriven.count-1))), vehicle: vehicle)
   end
 end
@@ -96,7 +98,7 @@ end
 carpools.each do |carpool|
   potential_passengers = demo_users.dup
   potential_passengers.delete(carpool.driver)
-  (1..rng.rand(1..3)).each do |i|
+  (1..rng.rand(0..carpool.vehicle.passenger_limit)).each do |i|
     CarpoolPassenger.create!(carpool: carpool, passenger: potential_passengers.delete_at(rng.rand(0..(potential_passengers.count-1))))
   end
 end
