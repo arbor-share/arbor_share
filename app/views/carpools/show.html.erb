@@ -37,6 +37,10 @@
             "line-width": 5
           }
         });
+        map.fitBounds(<%= facade.bounding_coords(current_user) %>, {
+          padding: 20,
+          animate: false
+        })
       });
     </script>
 </section>
