@@ -44,11 +44,16 @@
       });
     </script>
 </section>
-<section class='Attendees'>
-  <h2>Driver: <%= facade.driver_name %> - Email: <%= facade.driver_email %></h2>
+<section class="attendees">
+  <h3>Driver: <%= facade.driver_name %> -
+    <a href="mailto://<%= facade.driver_email %>"><%= facade.driver_email %></a>
+  </h3>
   <ul>
+    <h3>Passengers:</h3>
     <% facade.passengers.each do |passenger| %>
-      <li>Passenger: <%= passenger.full_name %> - Email: <%= passenger.email %></li>
+      <li><%= passenger.full_name %> -
+        <a href="mailto://<%= passenger.email %>"><%= passenger.email %></a>
+      </li>
     <% end %>
   </ul>
 </section>
