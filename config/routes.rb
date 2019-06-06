@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create] do
     resources :addresses, only: [:create, :update]
+    post '/addresses/:address_id', to: 'addresses#put'
     resources :vehicles, only: [:create, :update]
+    post '/vehicles/:vehicle_id', to: 'vehicles#put'
   end
 
   namespace :profile do
@@ -27,5 +29,6 @@ Rails.application.routes.draw do
   end
 
   resources :carpools, only: [:show]
-  delete 'projects/:id/carpools/:carpool_id/delete', to: 'projects/carpools/drivers#destroy', as: 'destroy_carpool'
+  delete '/projects/:id/carpools/:carpool_id/delete', to: 'projects/carpools/drivers#destroy', as: 'destroy_carpool'
+  patch '/projects/:id/carpools/:carpool_id/leave', to: 'projects/carpools/passengers#patch', as: 'leave_carpool'
 end

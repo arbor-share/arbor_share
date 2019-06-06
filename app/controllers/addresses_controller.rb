@@ -8,6 +8,12 @@ class AddressesController < ApplicationController
     make_default(params[:id]) if params[:_method] == 'patch'
   end
 
+  def put
+    address = Address.find(params[:address_id])
+    address.update(address_params)
+    redirect_to profile_path
+  end
+
   private
 
   def make_default(id)

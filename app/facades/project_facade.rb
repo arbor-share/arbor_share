@@ -1,6 +1,7 @@
 class ProjectFacade
-  attr_reader :title, :date, :image, :location, :carpools, :description, :coordinates
+  attr_reader :model, :title, :date, :image, :location, :carpools, :description, :coordinates
   def initialize(project)
+    @model = project
     @title = project.title
     @description = project.description
     @date = project.date

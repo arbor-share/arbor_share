@@ -6,8 +6,8 @@ class User < ApplicationRecord
   has_many :blocked_users, through: :user_blocks
 
   has_many :carpools, foreign_key: 'driver_id'
-  has_many :carpool_passengers
-  has_many :rides, through: :carpool_passengers, class_name: :Carpool
+  has_many :carpool_passengers, foreign_key: 'passenger_id'
+  has_many :rides, through: :carpool_passengers, source: :carpool
 
   enum role: %i[default organizer admin]
 
@@ -62,5 +62,25 @@ class User < ApplicationRecord
 
   def in_carpool?(carpool)
     carpool.driver == self || carpool.passengers.include?(self)
+  end
+
+  def is_participating_in?(project)
+    is_driver_for?(project) || is_passenger_for?(project)
+  end
+
+  def is_driver_for?(project)
+    driving_to_projects.include?(project)
+  end
+
+  def driving_to_projects
+    @_driving_to_projects ||= Project.joins(:carpools).where(carpools: {driver: self})
+  end
+
+  def is_passenger_for?(project)
+    riding_to_projects.include?(project)
+  end
+
+  def riding_to_projects
+    @_riding_to_projects ||= Project.joins(carpools: :passengers).where(carpool_passengers: {passenger_id: self.id})
   end
 end

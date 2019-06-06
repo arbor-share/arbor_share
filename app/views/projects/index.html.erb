@@ -22,9 +22,13 @@
           <%= project.location.zip %>
         </p>
         <h4>Project Description</h4>
-        <span><%= project.description%></span>
+        <span><%= project.description.length > 128 ? project.description.slice(0,127) + "…" : project.description %></span>
       </div>
+      <% if current_user&.is_participating_in?(project) %>
+      <section id="visit_button-<%= project.id %>"><%= button_to 'Visit the Project', project_path(project), method: :get %>
+      <% else %>
       <section id="join_button-<%= project.id %>"><%= button_to 'Join the Project', project_path(project), method: :get %>
+      <% end %>
       </section>
     </section>
     <% end %>

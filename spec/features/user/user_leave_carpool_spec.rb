@@ -74,26 +74,16 @@ RSpec.describe 'as a logged in user' do
     @carpool = Carpool.create(driver: @driver, project: @project1, vehicle: @vehicle1, passengers: [@passenger, @passenger_1])
   end
 
-  context 'as a driver on the carpool show page' do
-    it 'can cancel the carpool' do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@driver)
+  context 'as a passenger on the project show page' do
+    it 'can leave the carpool' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@passenger)
       visit project_path(@project1)
 
-      click_link 'Cancel Carpool'
+      click_link 'Leave Carpool'
 
       expect(current_path).to eq(project_path(@project1))
-      expect(page).to have_content('You are no longer a driver.')
-      expect(page).to_not have_content("Driver: #{@driver.full_name}")
-    end
-  end
-
-  context 'as a non-driver on the carpool show page' do
-    it 'can not see cancel carpool link' do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@passenger)
-
-      visit project_path(@project1)
-
-      expect(page).to_not have_link('Cancel Carpool')
+      expect(page).to have_content('You are no longer a passenger.')
+      expect(page).to_not have_content("#{@passenger.full_name}")
     end
   end
 end

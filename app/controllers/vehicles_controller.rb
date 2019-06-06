@@ -8,6 +8,12 @@ class VehiclesController < ApplicationController
     make_default(params[:id]) if params[:_method] == 'patch'
   end
 
+  def put
+    vehicle = Vehicle.find(params[:vehicle_id])
+    vehicle.update(vehicle_params)
+    redirect_to profile_path
+  end
+
   private
 
   def make_default(id)

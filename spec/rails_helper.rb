@@ -9,8 +9,8 @@ require 'rspec/rails'
 require 'simplecov'
 SimpleCov.start 'rails'
 SimpleCov.configure do
-  minimum_coverage 90
-  minimum_coverage_by_file 90
+  minimum_coverage 95
+  minimum_coverage_by_file 85
 end
 
 begin # hide folders from SimpleCov if we're not using them

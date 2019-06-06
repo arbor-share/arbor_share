@@ -7,6 +7,7 @@ nav {
   box-shadow: 0 0 3px;
   font-family: 'News Cycle', sans-serif;
   background-color: #80B541;
+  z-index: 1;
 }
 
 .session_control a:not(#Google-login), .main-links a {

@@ -1,83 +1,73 @@
 <main id="project-page">
-<section class='project-show-card'>
-   <h1>Project: <%= facade.title %></h1>
-   <img src="<%= facade.image %>" alt="Picture of <%= facade.title %> site">
-   <h2>Project Date: <%= facade.date %></h2>
-   <p>Project Details: <%= facade.description %></p>
-</section>
-
-<section class='map'>
-  <div id='map' style='width: 400px; height: 300px;'></div>
-  <script>
-    mapboxgl.accessToken = '<%= ENV['MAPBOX_TOKEN'] %>';
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/outdoors-v11',
-      center: <%= facade.coordinates %>,
-      zoom: 13,
-    });
-    map.on('load', function() {
-      map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
-        if (error) throw error;
-          map.addImage('cat', image);
-          map.addLayer({
-            "id": "points",
-            "type": "symbol",
-            "source": {
-              "type": "geojson",
-              "data": {
-                "type": "FeatureCollection",
-                "features": [{
-                  "type": "Feature",
-                  "geometry": {
-                    "type": "Point",
-                    "coordinates": <%= facade.coordinates %>
-                  }
-                }]
-              }
-            },
-          "layout": {
-          "icon-image": "cat",
-          "icon-size": 0.25
-          }
+  <section class='project-show-card'>
+    <h1>Project: <%= facade.title %></h1>
+    <img src="<%= facade.image %>" alt="Picture of <%= facade.title %> site">
+    <section class='map'>
+      <div id='map' style='width: 400px; height: 300px;'></div>
+      <script>
+        mapboxgl.accessToken = '<%= ENV['MAPBOX_TOKEN'] %>';
+        var map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/outdoors-v11',
+          center: <%= facade.coordinates %>,
+          zoom: 13,
         });
-      });
-    });
-  </script>
-</section>
-<% if current_user %>
-  <section class='drivers'>
-    <%= button_to 'Become a Driver', projects_create_carpool_path %>
-    <% unless facade.no_rides? %>
-      <section class='carpools'>
-        <% facade.carpools.each do |carpool| %>
-          <section class='carpool-<%= carpool.id %>'>
-            <h3>Driver: <%= carpool.driver_name %></h3>
-            <% if current_user.in_carpool?(carpool) %>
-              <p><%= link_to 'View Carpool', carpool_path(carpool) %></p>
-            <% end %>
+        map.on('load', function() {
+          var marker = new mapboxgl.Marker()
+            .setLngLat(<%= facade.coordinates %>)
+            .addTo(map);
+        });
+      </script>
+    </section>
 
-            <%  if carpool.driver_id == current_user.id %>
-              <%= link_to 'Cancel Carpool', destroy_carpool_path(carpool_id: carpool.id), method: :delete, data: {confirm: 'Are you sure you want to leave this carpool? You are the driver.'} %>
-            <% end %>
-            <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
-              <section class='passengers'>
-                <p>Passengers:</p>
-                <ul>
-                <% carpool.passengers.each do |passenger| %>
-                  <li><%= passenger.full_name %></li>
-                <% end %>
-                </ul>
-                <% unless facade.check_carpool(carpool, current_user) %>
-                  <%= button_to 'Catch a Ride', projects_carpool_update_path(carpool_id: carpool.id) %>
-                <% end %>
-            </section>
-          </section>
+    <h2>Project Date: <time datetime="<%= facade.date %>"><%= facade.date.strftime('%A, %b %-d, %Y') %></time></h2>
+    <p>Project Details: <%= facade.description %></p>
+  </section>
+  <% if current_user %>
+  <section class='drivers'>
+    <% unless current_user.is_participating_in?(facade.model) %>
+    <%= button_to 'Become a Driver', projects_create_carpool_path %>
+    <% end %>
+    <% unless facade.no_rides? %>
+    <h3>Available Carpools</h3>
+    <section class='carpools'>
+      <% facade.carpools.each do |carpool| %>
+      <section class='carpool-<%= carpool.id %>'>
+        <h3>Driver: <%= carpool.driver_name %></h3>
+        <div class="controls">
+        <% if current_user.in_carpool?(carpool) %>
+        <%= link_to 'View Details', carpool_path(carpool) %>
         <% end %>
+
+        <% if current_user.rides.include?(carpool) %>
+        <%= link_to 'Leave Carpool', leave_carpool_path(carpool_id: carpool.id), method: :patch, data: {confirm: 'Are you sure you want to leave this carpool?'} %>
+        <% end %>
+
+        <%  if carpool.driver_id == current_user.id %>
+        <%= link_to 'Cancel Carpool', destroy_carpool_path(carpool_id: carpool.id), method: :delete, data: {confirm: 'Are you sure you want to leave this carpool? You are the driver.'} %>
+        <% end %>
+        </div>
+        <h4>Available Seats: <%= carpool.available %> of <%= carpool.seats %></h4>
+        <section class='passengers'>
+          <% if carpool.passengers.count == 0 %>
+          <h4>No Passengers Yet!</h4>
+          <% else %>
+          <ul>
+            <% carpool.passengers.each do |passenger| %>
+            <li><%= passenger.full_name %></li>
+            <% end %>
+          </ul>
+          <% end %>
+          <% unless facade.check_carpool(carpool, current_user) || current_user.is_driver_for?(facade.model) %>
+          <%= button_to 'Catch a Ride', projects_carpool_update_path(carpool_id: carpool.id) %>
+          <% end %>
+        </section>
       </section>
       <% end %>
+    </section>
+    <% end %>
   </section>
-<% else %>
+  <% else %>
   <h3>Sign in to become a Driver or join a Carpool!</h3>
-<% end %>
+  <% end %>
 </main>

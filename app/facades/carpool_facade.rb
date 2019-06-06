@@ -20,12 +20,15 @@ class CarpoolFacade
   end
 
   def center_coord(current_user)
-    current_user.format_coords
+    boundary = bounding_coords(current_user)
+    lng = (boundary.first.first + boundary.last.first) / 2
+    lat = (boundary.first.last + boundary.last.last) / 2
+    [lng, lat]
   end
 
   def coord_format(user)
     map = MapboxService.new
-    if user == @driver
+    @_coords ||= if user == @driver
       route = @passengers.map do |person|
         person.format_coords
       end
@@ -36,5 +39,9 @@ class CarpoolFacade
       user_route = [user.format_coords, @project.format_coords]
       map.get_geo(user_route)
     end
+  end
+
+  def bounding_coords(user)
+    [coord_format(user).first, coord_format(user).last]
   end
 end

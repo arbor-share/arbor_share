@@ -87,10 +87,11 @@
   border-bottom: #808080 1px solid
 }
 
-.address form, .vehicle form {
+.address .controls, .vehicle .controls {
   position: absolute;
   top: 0px;
   right: 0px;
+  text-align: right;
 }
 
 div.hidden {
