@@ -104,10 +104,14 @@ end
 
 carpools.each do |carpool|
   potential_passengers = demo_users.dup + [user_1, user_2, user_3, user_4]
+  delete_these = []
   potential_passengers.each do |user|
-    if user.is_driver_for?(carpool.project)
-      potential_passengers.delete(user)
+    if user.is_participating_in?(carpool.project)
+      delete_these << user
     end
+  end
+  delete_these.each do |user|
+    potential_passengers.delete(user)
   end
   (1..rng.rand(0..carpool.vehicle.passenger_limit)).each do |i|
     CarpoolPassenger.create!(carpool: carpool, passenger: potential_passengers.delete_at(rng.rand(0..(potential_passengers.count-1))))
