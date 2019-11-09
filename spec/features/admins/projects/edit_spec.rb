@@ -48,7 +48,7 @@ describe 'As an admin' do
   end
 
   it 'shows an error message if project fields not filled out correctly' do
-    new_date = (Date.today >> 2).strftime('%Y-%m-%d')
+    new_date = (Date.today << 1).strftime('%Y-%m-%d')
     fill_in 'Date', with: new_date
 
     click_button("Update Project")
