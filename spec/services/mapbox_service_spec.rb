@@ -8,6 +8,11 @@ describe MapboxService do
     result = mapbox_service.get_coords(address)
 
     expect(result).to be_a(Hash)
-    expect(result[:features].first[:center]).to eq([-104.99625, 39.75109])
+
+    coords = result[:features].first[:center]
+    expect(coords[0]).to be > -105
+    expect(coords[0]).to be < -104.9
+    expect(coords[1]).to be > 39.7
+    expect(coords[1]).to be < 39.8
   end
 end
