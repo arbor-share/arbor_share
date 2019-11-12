@@ -34,10 +34,12 @@ user_5 = User.create!(full_name: "Jerk", email: "jerk@example.com", about: "I'm 
 
 address_11 = Address.create!(owner: user_1, line_1: "Civic Center Station", line_2: "Along Colfax westbound", city: "Denver", state: "CO", zip: "80202", default: true, longitude: '-104.9870', latitude: '39.7402')
 address_12 = Address.create!(owner: user_1, line_1: "Union Station", line_2: "Wynkoop and 17th", city: "Denver", state: "CO", zip: "80202", default: false, longitude: '-104.9997', latitude: '39.7528')
-address_21 = Address.create!(owner: user_2, line_1: "Central Park S and 7th", city: "New York", state: "NY", zip: "10019", default: true, longitude: '-73.9790', latitude: '40.7669')
+address_21 = Address.create!(owner: user_2, line_1: "Central Park S and 7th", city: "New York", state: "NY", zip: "10019", default: false, longitude: '-73.9790', latitude: '40.7669')
 address_22 = Address.create!(owner: user_2, line_1: "World Trade Center Memorial", city: "New York", state: "NY", zip: "10007", default: false, longitude: '-74.0122', latitude: '40.7115')
-address_31 = Address.create!(owner: user_3, line_1: "Dodgers Stadium parking lot", city: "Los Angeles", state: "CA", zip: "90099", default: true, longitude: '-118.2411', latitude: '34.0682')
+address_23 = Address.create!(owner: user_2, line_1: "Civic Center Station", line_2: "Along Colfax westbound", city: "Denver", state: "CO", zip: "80202", default: true, longitude: '-104.9870', latitude: '39.7402')
+address_31 = Address.create!(owner: user_3, line_1: "Dodgers Stadium parking lot", city: "Los Angeles", state: "CA", zip: "90099", default: false, longitude: '-118.2411', latitude: '34.0682')
 address_32 = Address.create!(owner: user_3, line_1: "Union Station loading area", line_2: "West side", city: "Los Angeles", state: "CA", zip: "90099", default: false, longitude: '-118.2368', latitude: '34.0561')
+address_33 = Address.create!(owner: user_3, line_1: "Civic Center Station", line_2: "Along Colfax westbound", city: "Denver", state: "CO", zip: "80202", default: true, longitude: '-104.9870', latitude: '39.7402')
 address_41 = Address.create!(owner: user_4, line_1: "Civic Center Station", line_2: "Along Colfax westbound", city: "Denver", state: "CO", zip: "80202", default: false, longitude: '-104.9870', latitude: '39.7402')
 address_42 = Address.create!(owner: user_4, line_1: "Union Station", line_2: "Wynkoop and 17th", city: "Denver", state: "CO", zip: "80202", default: true, longitude: '-104.9997', latitude: '39.7528')
 
@@ -85,7 +87,7 @@ demo_users = names.map do |name|
   google_id: nil,
   role: :default,
   active: true)
-  Address.create!(owner: user, line_1: "At #{name}'s favorite place", city: "Denver", state: "CO", zip: "80802", default: true, longitude: rng.rand((-105.5000)..(-104.5000)).to_s, latitude: rng.rand(39.7000..39.8000).to_s)
+  Address.create!(owner: user, line_1: "At #{name}'s favorite place", city: "Denver", state: "CO", zip: "80802", default: true, longitude: rng.rand((-105.1400)..(-104.7300)).to_s, latitude: rng.rand(39.5800..39.7900).to_s)
   user
 end
 
